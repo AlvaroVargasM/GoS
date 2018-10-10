@@ -19,6 +19,9 @@ public class Test {
         avl.insertNode(8);
         avl.insertNode(350);
         avl.insertNode(400);
+        avl.insertNode(325);
+        avl.insertNode(225);
+        avl.insertNode(170);
         avl.infixPrint(avl.getRoot());
         avl.deleteNode(25);
         System.out.println("\n\n\n\n");

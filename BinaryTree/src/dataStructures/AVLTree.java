@@ -24,9 +24,9 @@ public class AVLTree extends BinarySearchTree{
     public void leftRotation(BinaryNode unbalancedNode){
         BinaryNode fatherNode = getFatherNode(unbalancedNode.getData());
         BinaryNode rightChild = unbalancedNode.getRightChild();
-        BinaryNode nodeX = rightChild.getLeftChild();
+        BinaryNode grandChildNode = rightChild.getLeftChild();
         rightChild.setLeftChild(unbalancedNode);
-        rightChild.getLeftChild().setRightChild(nodeX);
+        rightChild.getLeftChild().setRightChild(grandChildNode);
         if(unbalancedNode == root)root = rightChild;
         else if(fatherNode.getLeftChild() == unbalancedNode) fatherNode.setLeftChild(rightChild);
         else fatherNode.setRightChild(rightChild);
@@ -35,9 +35,9 @@ public class AVLTree extends BinarySearchTree{
     public void rightRotation(BinaryNode unbalancedNode){
         BinaryNode fatherNode = getFatherNode(unbalancedNode.getData());
         BinaryNode leftChild = unbalancedNode.getLeftChild();
-        BinaryNode nodeX = leftChild.getRightChild();
+        BinaryNode grandChildNode = leftChild.getRightChild();
         leftChild.setRightChild(unbalancedNode);
-        leftChild.getRightChild().setLeftChild(nodeX);
+        leftChild.getRightChild().setLeftChild(grandChildNode);
         if(unbalancedNode == root)root = leftChild;
         else if(fatherNode.getLeftChild() == unbalancedNode) fatherNode.setLeftChild(leftChild);
         else fatherNode.setRightChild(leftChild);
@@ -102,6 +102,8 @@ public class AVLTree extends BinarySearchTree{
                defineRotationType(node);
            }
         }
+        setTreeHeight();
+        setBalanceFactor();
     }
     
     public void defineRotationType(BinaryNode node){
@@ -116,7 +118,5 @@ public class AVLTree extends BinarySearchTree{
             if(rightChild.getBalanceFactor() > 0)this.leftRotation(node);
             else this.rightLeftDoubleRotation(node);
         }
-        setTreeHeight();
-        setBalanceFactor();
     }
 }
