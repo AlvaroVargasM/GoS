@@ -14,6 +14,13 @@ public class AVLTree extends BinarySearchTree{
         balanceTree(root, data);
     }
     
+    public void deleteNode(int data){
+        super.deleteNode(data);
+        setTreeHeight();
+        setBalanceFactor();
+        balanceTree(root, data);
+    }
+    
     public void leftRotation(BinaryNode unbalancedNode){
         BinaryNode fatherNode = getFatherNode(unbalancedNode.getData());
         BinaryNode rightChild = unbalancedNode.getRightChild();
@@ -109,5 +116,7 @@ public class AVLTree extends BinarySearchTree{
             if(rightChild.getBalanceFactor() > 0)this.leftRotation(node);
             else this.rightLeftDoubleRotation(node);
         }
+        setTreeHeight();
+        setBalanceFactor();
     }
 }

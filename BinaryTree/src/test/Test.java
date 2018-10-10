@@ -20,10 +20,9 @@ public class Test {
         bts.insertNode(350);
         bts.insertNode(400);
         bts.infixPrint(bts.getRoot());
-//        bts.rightLeftDoubleRotation(bts.getRoot());
-//        System.out.println("\n\n\n\n");
-//        bts.infixPrint(bts.getRoot());
-//        System.out.println(bts.getMaxDepth(bts.getRoot()));
+        bts.deleteNode(25);
+        System.out.println("\n\n\n\n");
+        bts.infixPrint(bts.getRoot());
 
     }
 }
