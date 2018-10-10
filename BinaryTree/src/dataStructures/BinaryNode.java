@@ -1,27 +1,27 @@
 package dataStructures;
 
-public class TreeNode<GenericData>{
-    private TreeNode leftChild, rightChild;
-    private int data;
+public abstract class BinaryNode {
+    protected BinaryNode leftChild, rightChild;
+    protected int data;
     
-    public TreeNode(int data){
+    public BinaryNode(int data){
         this.leftChild = this.rightChild = null;
         this.data = data;
     }
 
-    public TreeNode getLeftChild() {
+    public BinaryNode getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(TreeNode leftChild) {
+    public void setLeftChild(BinaryNode leftChild) {
         this.leftChild = leftChild;
     }
 
-    public TreeNode getRightChild() {
+    public BinaryNode getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(TreeNode rightChild) {
+    public void setRightChild(BinaryNode rightChild) {
         this.rightChild = rightChild;
     }
 
@@ -34,7 +34,7 @@ public class TreeNode<GenericData>{
     }
     
     public String toString(){
-    String str = Integer.toString(data);
-    return str;
+        String str = Integer.toString(data);
+        return str;
     }
 }
