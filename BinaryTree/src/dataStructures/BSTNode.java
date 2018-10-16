@@ -1,27 +1,27 @@
 package dataStructures;
 
-public abstract class BinaryNode {
-    protected BinaryNode leftChild, rightChild;
+public class BSTNode {
+    protected BSTNode leftChild, rightChild;
     protected int data;
     
-    public BinaryNode(int data){
+    public BSTNode(int data){
         this.leftChild = this.rightChild = null;
         this.data = data;
     }
 
-    public BinaryNode getLeftChild() {
+    public BSTNode getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(BinaryNode leftChild) {
+    public void setLeftChild(BSTNode leftChild) {
         this.leftChild = leftChild;
     }
 
-    public BinaryNode getRightChild() {
+    public BSTNode getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(BinaryNode rightChild) {
+    public void setRightChild(BSTNode rightChild) {
         this.rightChild = rightChild;
     }
 

@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class AVLNode extends BinaryNode{
+public class AVLNode extends BSTNode{
     private int height;
     private int balanceFactor;
     
