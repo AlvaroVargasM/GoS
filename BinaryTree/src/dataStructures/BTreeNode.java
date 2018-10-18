@@ -21,7 +21,7 @@ public class BTreeNode {
     }
     
     public void setKeyInPosition(int key, int position){
-        keys.add(key, position);
+        keys.addInPosition(key, position);
     }
     
     public BTreeNode getChildrenInPosition(int position){

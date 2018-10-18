@@ -28,7 +28,7 @@ public class LinkedList<GenericType>{
      * @param position
      * @param data
      */
-    public void add(GenericType data, int position){
+    public void addInPosition(GenericType data, int position){
         if(position < 0) return;
         if(position > size) position = size;
         LinkedListNode newNode = new LinkedListNode(data, position);
@@ -51,7 +51,7 @@ public class LinkedList<GenericType>{
      * @param data
      */
     public void add(GenericType data){
-        this.add(data, size);
+        this.addInPosition(data, size);
     }
     
     public void deleteNodeInPosition(int position){
@@ -97,14 +97,10 @@ public class LinkedList<GenericType>{
      * Deletes the last inserted node of the list.
      */
     public void deleteLastNode(){
-        if(firstNode != null && firstNode.getNextNode() != null){
-            LinkedListNode node = firstNode;
-            while(node.getNextNode().getNextNode() != null)node = node.getNextNode();
-            node.setNextNode(null);
-        }
+        this.deleteNodeInPosition(size-1);
     }
     
-    public void updatePositions(){
+    private void updatePositions(){
         int pos = 0;
         for(LinkedListNode node = firstNode; node != null; node = node.getNextNode()){
             node.setPosition(pos);
