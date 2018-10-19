@@ -20,6 +20,8 @@ import sprites.Captain;
 import sprites.Commander;
 import sprites.EnemyShoot;
 import sprites.DragonRider;
+import dataStructures.LinkedList;
+import dataStructures.LinkedListNode;
 
 
 public class GameScreen implements Screen{
@@ -30,8 +32,9 @@ public class GameScreen implements Screen{
 
     public Texture background;
     
-    ArrayList<RiderShoot>riderShoots;
-    ArrayList<EnemyShoot>enemyShoots;
+    private LinkedList<RiderShoot> riderShoots;
+    private LinkedList<EnemyShoot> enemyShoots;
+    int[] overlapedSprites;
     
     private Dragon[] dragons = new Dragon[20];
     private Point2D.Float[] dragonPositions = new Point2D.Float[20];
@@ -46,8 +49,9 @@ public class GameScreen implements Screen{
         
         background = new Texture("castle.png");
         
-        riderShoots = new ArrayList<RiderShoot>();
-        enemyShoots = new ArrayList<EnemyShoot>();
+        riderShoots = new LinkedList<RiderShoot>();
+        enemyShoots = new LinkedList<EnemyShoot>();
+        overlapedSprites = new int[3];
 
         dragonPositions = setInitialPositions(dragonPositions);
     }
@@ -59,6 +63,9 @@ public class GameScreen implements Screen{
     public void render(float delta) {   
             Gdx.gl.glClearColor((float)253/255, (float)141/255, (float)127/255, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            main.batch.begin();
+            
+            main.batch.draw(background, 0,0,1920,1080);
             
             deltaTime = Gdx.graphics.getDeltaTime();
             stateTime += deltaTime;
@@ -76,59 +83,54 @@ public class GameScreen implements Screen{
                 shootTimer=0;
                 riderShoots.add(new RiderShoot(rider.getX()+30, rider.getY()+15));
             }
+                        
+            for(LinkedListNode node = riderShoots.getFirstNode(); node != null;
+            node = node.getNextNode()){
+                RiderShoot rShoot = (RiderShoot)node.getData();
+                rShoot.update(deltaTime);
+                rShoot.render(main.batch,stateTime);
+            } 
             
             rider.movement(deltaTime);
+            rider.render(main.batch,stateTime,deltaTime);
             
-
-            for(RiderShoot rShoot: riderShoots){
-                rShoot.update(deltaTime);
-                for(EnemyShoot eShoot: enemyShoots){
-                    if(rShoot.getSprite().overlaps(eShoot.getSprite())){
-                        System.out.println("Choque");
+            int[] overlapedSprites = new int[3];
+            
+            overlapedSprites[0]=-1;
+            for(LinkedListNode node = enemyShoots.getFirstNode(); node != null;
+            node = node.getNextNode()){
+                EnemyShoot eShoot = (EnemyShoot)node.getData();
+                eShoot.update(deltaTime);
+                eShoot.render(main.batch,stateTime);
+                
+                for(LinkedListNode node2 = riderShoots.getFirstNode(); node2 != null;
+                node2 = node2.getNextNode()){
+                RiderShoot rShoot = (RiderShoot)node2.getData();
+                
+                if(eShoot.getSprite().overlaps(rShoot.getSprite())){
+                    overlapedSprites[0]=1;
+                    overlapedSprites[1]= node.getPosition();
+                    overlapedSprites[2]= node2.getPosition();
                     }
                 }
                 
-             
+                
             }
             
-            ArrayList<EnemyShoot> deadShoots = new ArrayList<EnemyShoot>();
-            for(EnemyShoot shoot: enemyShoots){
-             shoot.update(deltaTime);
-             if(shoot.remove)deadShoots.add(shoot);
-            }
-           
+            if(overlapedSprites[0] == 1) enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
+            if(overlapedSprites[0] == 1) riderShoots.deleteNodeInPosition(overlapedSprites[2]);
             
-            ArrayList<Dragon> deadDragons = new ArrayList<Dragon>();
-            for(int i=0;i<20;i++){
+            
+            
+            for(int i=0;i<dragons.length;i++){
                 if(!(dragons[i]==null)){
                     dragons[i].update(deltaTime, (80*deltaTime));
-                }
-             //if(enemy.remove)deadDragons.add(enemy);
-            }
-            
-            
-            
-            
-            
-            main.batch.begin();
-            main.batch.draw(background, 0,0,1920,1080);
-            
-            rider.render(main.batch,stateTime,deltaTime);
-            
-            for(RiderShoot flame: riderShoots) flame.render(main.batch,stateTime);
-            
-            for(int i=0;i<20;i++){
-                if(!(dragons[i]==null)){
                     dragons[i].render(main.batch,stateTime,deltaTime);
                     if(dragons[i].getShooting()){
                         enemyShoots.add(new EnemyShoot(dragons[i].getIsCommander(),dragons[i].getX()-20,dragons[i].getY()+15));
                         dragons[i].restartShoot();
                     }
                 }
-            }
-            
-            for(EnemyShoot shoot: enemyShoots){
-                shoot.render(main.batch,stateTime);
             }
             
             main.batch.end();
