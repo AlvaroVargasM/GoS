@@ -14,7 +14,7 @@ public class Menu implements Screen{
     private static int play_X;
     private static final int play_Y = 400;
     
-    
+   
     private static int exitWidth = 300;
     private static int exitHeight = 150;
     private static int exit_X;
