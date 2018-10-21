@@ -112,49 +112,36 @@ public class LinkedList<GenericType>{
     }
     
     public void selectionSort(){
-        if(firstNode != null && firstNode.getData().getClass() == Dragon.class){
+        if(firstNode != null){
             Random random = new Random();
             selectionSort(random.nextBoolean());
             updatePositions();
         }
     }
     
-    private void selectionSort(boolean ascending){
+    public void selectionSort(boolean ascending){
         for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
             node1 = node1.getNextNode()){
-            Dragon dragonInNode1 = (Dragon) node1.getData();
             for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
                 node2 = node2.getNextNode()){
-                Dragon dragonInNode2 = (Dragon) node2.getData();
-                if(dragonInNode1.getAge() > dragonInNode2.getAge()){
+                if(((Dragon) node1.getData()).getAge() > ((Dragon) node2.getData()).getAge()){
                     if(ascending) swapData(node1, node2);
                 }
                 else{
-                    if(!ascending) if(!ascending) swapData(node2, node1);
+                    if(!ascending) swapData(node2, node1);
                 }
             }
-        }
+        }updatePositions();
     }
     
-    
-    private void swapPositions(Dragon draco1, Dragon draco2){
-        int temp = draco2.getPosition();
-        
-        draco2.setPosition(draco1.getPosition());
-        draco1.setPosition(temp);
-    }
-    
-    private void swapData(LinkedListNode node1, LinkedListNode node2){
-        
-        GenericType temp = (GenericType) node2.getData();
+    public void swapData(LinkedListNode node1, LinkedListNode node2){
+        Dragon dragon = (Dragon) node2.getData();
         node2.setData(node1.getData());
-        node1.setData(temp);  
-        
-        
+        node1.setData(dragon);   
     }
     
     public void insertionSort(){
-        if(firstNode != null && firstNode.getData().getClass() == Dragon.class){
+        if(firstNode != null){
             Random random = new Random();
             insertionSort(random.nextBoolean());
             updatePositions();

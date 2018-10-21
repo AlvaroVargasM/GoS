@@ -22,6 +22,7 @@ import sprites.EnemyShoot;
 import sprites.DragonRider;
 import dataStructures.LinkedList;
 import dataStructures.LinkedListNode;
+import java.util.Random;
 import sprites.InfoPanel;
 import sprites.scrollingBackground;
 
@@ -87,14 +88,15 @@ public class GameScreen implements Screen{
             if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
                 for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
                     Dragon dragon = (Dragon)node.getData();
-                    System.out.println(dragon.getPosition()+"  | ");
+                    System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
                 }
                 System.out.println("___________________");
                 dragons.selectionSort();
+                updateDragonPositions();
                 
-                for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
-                    Dragon dragon = (Dragon)node.getData();
-                    System.out.println(dragon.getPosition()+"  | ");
+                for(LinkedListNode node2 = dragons.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
+                    Dragon dragon = (Dragon)node2.getData();
+                    System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
                 }
                 
                 /*for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
@@ -295,6 +297,14 @@ public class GameScreen implements Screen{
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
                     break;    
             }
+    }
+    
+    private void updateDragonPositions(){
+        int pos = 0;
+        for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+            ((Dragon)node.getData()).setPosition(pos);
+            pos++;
+        }
     }
         
 }
