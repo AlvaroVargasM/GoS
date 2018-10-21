@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.util.Random;
 import sprites.Dragon;
 
 /**
@@ -110,20 +111,26 @@ public class LinkedList<GenericType>{
         }
     }
     
-    public void selectionSort(boolean ascending){
-        if(firstNode.getData().getClass() == Dragon.class){
-            for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
-                node1 = node1.getNextNode()){
-                Dragon dragonInNode1 = (Dragon) node1.getData();
-                for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
-                    node2 = node2.getNextNode()){
-                    Dragon dragonInNode2 = (Dragon) node2.getData();
-                    if(dragonInNode1.getAge() > dragonInNode2.getAge()){
-                        if(ascending) swapData(node1, node2);
-                    }
-                    else{if(!ascending) swapData(node2, node1);}
+    public void selectionSort(){
+        if(firstNode != null && firstNode.getData().getClass() == Dragon.class){
+            Random random = new Random();
+            selectionSort(random.nextBoolean());
+            updatePositions();
+        }
+    }
+    
+    private void selectionSort(boolean ascending){
+        for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
+            node1 = node1.getNextNode()){
+            Dragon dragonInNode1 = (Dragon) node1.getData();
+            for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
+                node2 = node2.getNextNode()){
+                Dragon dragonInNode2 = (Dragon) node2.getData();
+                if(dragonInNode1.getAge() > dragonInNode2.getAge()){
+                    if(ascending) swapData(node1, node2);
                 }
-            }updatePositions();
+                else{if(!ascending) swapData(node2, node1);}
+            }
         }
     }
     
@@ -134,9 +141,33 @@ public class LinkedList<GenericType>{
     }
     
     public void insertionSort(){
-        if(firstNode.getData().getClass() == Dragon.class){
-            
+        if(firstNode != null && firstNode.getData().getClass() == Dragon.class){
+            Random random = new Random();
+            insertionSort(random.nextBoolean());
             updatePositions();
+        }
+    }
+    
+    public void insertionSort(boolean ascending){
+        int lenght = getSize();
+        for(int i = 1; i < lenght; i++){
+            Dragon dragon = (Dragon) getNodeInPosition(i).getData(); 
+            int speed = dragon.getChargeSpeed();
+            int j = i-1;
+            Dragon dragon2 = (Dragon) getNodeInPosition(j).getData();
+            if(ascending){
+                while (j>=0 && dragon2.getChargeSpeed() > speed){ 
+                    getNodeInPosition(j+1).setData(getNodeInPosition(j).getData());
+                    j--;
+                    dragon2 = (Dragon) getNodeInPosition(j).getData();
+                }
+            }else{
+                while (j>=0 && dragon2.getChargeSpeed() < speed){ 
+                    getNodeInPosition(j+1).setData(getNodeInPosition(j).getData());
+                    j--;
+                    dragon2 = (Dragon) getNodeInPosition(j).getData();
+                }
+            }getNodeInPosition(j+1).setData(speed);
         }
     }
     
