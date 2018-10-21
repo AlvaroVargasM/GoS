@@ -1,5 +1,8 @@
 package dataStructures;
 
+import java.util.Random;
+import sprites.Dragon;
+
 /**
  * LinkedList main purpose is to point to the firstNode of the list. It allows to
  * insert a new LinkedListNode to this list and store any amount of data in a 
@@ -107,6 +110,69 @@ public class LinkedList<GenericType>{
             pos++;
         }
     }
+    
+    public void selectionSort(){
+        if(firstNode != null && firstNode.getData().getClass() == Dragon.class){
+            Random random = new Random();
+            selectionSort(random.nextBoolean());
+            updatePositions();
+        }
+    }
+    
+    private void selectionSort(boolean ascending){
+        for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
+            node1 = node1.getNextNode()){
+            Dragon dragonInNode1 = (Dragon) node1.getData();
+            for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
+                node2 = node2.getNextNode()){
+                Dragon dragonInNode2 = (Dragon) node2.getData();
+                if(dragonInNode1.getAge() > dragonInNode2.getAge()){
+                    if(ascending) swapData(node1, node2);
+                }
+                else{
+                    if(!ascending) swapData(node2, node1);
+                }
+            }
+        }
+    }
+    
+    private void swapData(LinkedListNode node1, LinkedListNode node2){
+        GenericType temp = (GenericType) node2.getData();
+        node2.setData(node1.getData());
+        node1.setData(temp);   
+    }
+    
+    public void insertionSort(){
+        if(firstNode != null && firstNode.getData().getClass() == Dragon.class){
+            Random random = new Random();
+            insertionSort(random.nextBoolean());
+            updatePositions();
+        }
+    }
+    
+    private void insertionSort(boolean ascending){
+        int lenght = getSize();
+        for(int i = 1; i < lenght; i++){
+            Dragon dragon = (Dragon) getNodeInPosition(i).getData(); 
+            int speed = dragon.getChargeSpeed();
+            int j = i-1;
+            Dragon dragon2 = (Dragon) getNodeInPosition(j).getData();
+            if(ascending){
+                while (j>=0 && dragon2.getChargeSpeed() > speed){ 
+                    getNodeInPosition(j+1).setData(getNodeInPosition(j).getData());
+                    j--;
+                    dragon2 = (Dragon) getNodeInPosition(j).getData();
+                }
+            }else{
+                while (j>=0 && dragon2.getChargeSpeed() < speed){ 
+                    getNodeInPosition(j+1).setData(getNodeInPosition(j).getData());
+                    j--;
+                    dragon2 = (Dragon) getNodeInPosition(j).getData();
+                }
+            }getNodeInPosition(j+1).setData(speed);
+        }
+    }
+    
     /**
      * Getter for FirstNode attribute.
      * @return firstNode: LinkedListNode
