@@ -110,7 +110,7 @@ public class LinkedList<GenericType>{
         }
     }
     
-    public void selectionSort(){
+    public void selectionSort(boolean ascending){
         if(firstNode.getData().getClass() == Dragon.class){
             for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
                 node1 = node1.getNextNode()){
@@ -119,13 +119,18 @@ public class LinkedList<GenericType>{
                     node2 = node2.getNextNode()){
                     Dragon dragonInNode2 = (Dragon) node2.getData();
                     if(dragonInNode1.getAge() > dragonInNode2.getAge()){
-                        GenericType temp = (GenericType) node2.getData();
-                        node2.setData(node1.getData());
-                        node1.setData(temp);
+                        if(ascending) swapData(node1, node2);
                     }
+                    else{if(!ascending) swapData(node2, node1);}
                 }
             }updatePositions();
         }
+    }
+    
+    private void swapData(LinkedListNode node1, LinkedListNode node2){
+        GenericType temp = (GenericType) node2.getData();
+        node2.setData(node1.getData());
+        node1.setData(temp);   
     }
     
     public void insertionSort(){

@@ -107,6 +107,30 @@ public class LinkedList<GenericType>{
             pos++;
         }
     }
+    
+    public void selectionSort(boolean ascending){
+        for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
+            node1 = node1.getNextNode()){
+            Integer int1 = (Integer) node1.getData();
+            for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
+                node2 = node2.getNextNode()){
+                Integer int2 = (Integer) node2.getData();
+                if(int1 > int2){
+                    if(ascending) swapData(node1, node2);
+                }
+                else{
+                    if(!ascending) swapData(node2, node1);
+                }
+            }
+        }updatePositions();
+    }
+    
+    private void swapData(LinkedListNode node1, LinkedListNode node2){
+        GenericType temp = (GenericType) node2.getData();
+        node2.setData(node1.getData());
+        node1.setData(temp);   
+    }
+    
     /**
      * Getter for FirstNode attribute.
      * @return firstNode: LinkedListNode
