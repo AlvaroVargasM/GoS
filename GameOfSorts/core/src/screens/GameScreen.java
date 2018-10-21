@@ -46,6 +46,10 @@ public class GameScreen implements Screen{
     scrollingBackground background;
     InfoPanel infoPanel;
     
+    
+    Texture test = new Texture("sun.png");
+    float testX=50; 
+    float testY =200;
     Main main;
 
     public GameScreen(Main game) {
@@ -77,6 +81,23 @@ public class GameScreen implements Screen{
             manageInputs();
  
             renderSprites();
+            
+            main.batch.draw(test,testX, testY, 210, 218);
+            
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                float X2 = testX+150;
+                float Y2 = testY+150;
+                while(testX != X2){
+                    main.batch.draw(test,testX, testY, 210, 218);
+                    testX+= 5;
+                }
+                while(testY != Y2){
+                    main.batch.draw(test,testX, testY, 210, 218);
+                    testY+= 5;
+                }
+                
+                
+            }
             
             manageCollisions();
             
@@ -116,19 +137,19 @@ public class GameScreen implements Screen{
     
     private void manageInputs(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
-                for(int i=0;i<20;i++){
-                    dragonPositions = setInitialPositions(dragonPositions);
-                    Commander draco = new Commander("Clavija",i);
-                    draco.setFather("Porcio");
-                    draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
-                    dragons.add(draco);
-                }
+            for(int i=0;i<20;i++){
+                dragonPositions = setInitialPositions(dragonPositions);
+                Commander draco = new Commander("Clavija",i);
+                draco.setFather("Porcio");
+                draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
+                dragons.add(draco);
             }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer > shootCoolDown){
-                shootTimer=0;
-                riderShoots.add(new RiderShoot(rider.getX(), rider.getY(), rider.getOrientation()));
-            }
-            rider.movement(deltaTime);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer > shootCoolDown){
+            shootTimer=0;
+            riderShoots.add(new RiderShoot(rider.getX(), rider.getY(), rider.getOrientation()));
+        }
+        rider.movement(deltaTime);
     }
     
     private void renderSprites(){
