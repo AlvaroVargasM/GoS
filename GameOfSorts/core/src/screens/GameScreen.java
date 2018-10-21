@@ -98,6 +98,7 @@ public class GameScreen implements Screen{
                     Dragon dragon = (Dragon)node2.getData();
                     System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
                 }
+            }
             if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
                 
                 for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
@@ -327,7 +328,6 @@ public class GameScreen implements Screen{
                     
         }
     }
-<<<<<<< HEAD
     
     private void updateDragonPositions(){
         int pos = 0;
@@ -336,8 +336,5 @@ public class GameScreen implements Screen{
             pos++;
         }
     }
-        
-=======
->>>>>>> 92e38a7c476945f148380169595829df1504a230
 }
 
