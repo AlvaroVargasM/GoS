@@ -129,7 +129,9 @@ public class LinkedList<GenericType>{
                 if(dragonInNode1.getAge() > dragonInNode2.getAge()){
                     if(ascending) swapData(node1, node2);
                 }
-                else{if(!ascending) swapData(node2, node1);}
+                else{
+                    if(!ascending) swapData(node2, node1);
+                }
             }
         }
     }
@@ -148,7 +150,7 @@ public class LinkedList<GenericType>{
         }
     }
     
-    public void insertionSort(boolean ascending){
+    private void insertionSort(boolean ascending){
         int lenght = getSize();
         for(int i = 1; i < lenght; i++){
             Dragon dragon = (Dragon) getNodeInPosition(i).getData(); 

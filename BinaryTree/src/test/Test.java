@@ -10,7 +10,7 @@ public class Test {
         LinkedList L = new LinkedList();
         L.add(5); L.add(4); L.add(3); L.add(2); L.add(1); L.add(0);
         System.out.println(L.toString());
-        L.selectionSort(true);
+        L.selectionSort();
         System.out.println(L.toString());
         
 //        AVLTree avl = new AVLTree();
