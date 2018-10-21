@@ -22,35 +22,41 @@ import sprites.EnemyShoot;
 import sprites.DragonRider;
 import dataStructures.LinkedList;
 import dataStructures.LinkedListNode;
+import sprites.InfoPanel;
+import sprites.scrollingBackground;
 
 
 public class GameScreen implements Screen{
     
     private DragonRider rider = new DragonRider();
-    public static float shootCoolDown= 0.3f;
+    public static float shootCoolDown= 0.15f;
     public float shootTimer;
-
-    public Texture background;
     
     private LinkedList<RiderShoot> riderShoots;
     private LinkedList<EnemyShoot> enemyShoots;
+    private LinkedList<Dragon> dragons;
+    
     int[] overlapedSprites;
     
-    private Dragon[] dragons = new Dragon[20];
     private Point2D.Float[] dragonPositions = new Point2D.Float[20];
     
     float deltaTime;
     float stateTime;
+    
+    scrollingBackground background;
+    InfoPanel infoPanel;
     
     Main main;
 
     public GameScreen(Main game) {
         this.main = game;
         
-        background = new Texture("castle.png");
+        background = new scrollingBackground();
+        infoPanel = new InfoPanel();
         
         riderShoots = new LinkedList<RiderShoot>();
         enemyShoots = new LinkedList<EnemyShoot>();
+        dragons = new LinkedList<Dragon>();
         overlapedSprites = new int[3];
 
         dragonPositions = setInitialPositions(dragonPositions);
@@ -64,73 +70,19 @@ public class GameScreen implements Screen{
             Gdx.gl.glClearColor((float)253/255, (float)141/255, (float)127/255, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             main.batch.begin();
-            
-            main.batch.draw(background, 0,0,1920,1080);
-            
             deltaTime = Gdx.graphics.getDeltaTime();
             stateTime += deltaTime;
             shootTimer += deltaTime;
 
+            manageInputs();
+ 
+            renderSprites();
             
-            if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
-                for(int i=0;i<20;i++){
-                    Captain draco = new Captain("Mr. Johns",(float)dragonPositions[i].getX(),(float)dragonPositions[i].getY());
-                    dragons[i]= draco;
-                }
-            }
+            manageCollisions();
             
-            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer > shootCoolDown){
-                shootTimer=0;
-                riderShoots.add(new RiderShoot(rider.getX()+30, rider.getY()+15));
-            }
-                        
-            for(LinkedListNode node = riderShoots.getFirstNode(); node != null;
-            node = node.getNextNode()){
-                RiderShoot rShoot = (RiderShoot)node.getData();
-                rShoot.update(deltaTime);
-                rShoot.render(main.batch,stateTime);
-            } 
-            
-            rider.movement(deltaTime);
-            rider.render(main.batch,stateTime,deltaTime);
-            
-            int[] overlapedSprites = new int[3];
-            
-            overlapedSprites[0]=-1;
-            for(LinkedListNode node = enemyShoots.getFirstNode(); node != null;
-            node = node.getNextNode()){
-                EnemyShoot eShoot = (EnemyShoot)node.getData();
-                eShoot.update(deltaTime);
-                eShoot.render(main.batch,stateTime);
-                
-                for(LinkedListNode node2 = riderShoots.getFirstNode(); node2 != null;
-                node2 = node2.getNextNode()){
-                RiderShoot rShoot = (RiderShoot)node2.getData();
-                
-                if(eShoot.getSprite().overlaps(rShoot.getSprite())){
-                    overlapedSprites[0]=1;
-                    overlapedSprites[1]= node.getPosition();
-                    overlapedSprites[2]= node2.getPosition();
-                    }
-                }
-                
-                
-            }
-            
-            if(overlapedSprites[0] == 1) enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
-            if(overlapedSprites[0] == 1) riderShoots.deleteNodeInPosition(overlapedSprites[2]);
-            
-            
-            
-            for(int i=0;i<dragons.length;i++){
-                if(!(dragons[i]==null)){
-                    dragons[i].update(deltaTime, (80*deltaTime));
-                    dragons[i].render(main.batch,stateTime,deltaTime);
-                    if(dragons[i].getShooting()){
-                        enemyShoots.add(new EnemyShoot(dragons[i].getIsCommander(),dragons[i].getX()-20,dragons[i].getY()+15));
-                        dragons[i].restartShoot();
-                    }
-                }
+            if(rider.life==0){
+                this.dispose(); 
+                main.setScreen(new GameOver(main,0));
             }
             
             main.batch.end();
@@ -148,18 +100,122 @@ public class GameScreen implements Screen{
     public void dispose() {}
     
     private Point2D.Float[] setInitialPositions(Point2D.Float[] list){
-        float x = 1250;
-        float y = 850;
+        float x = 1690;
+        float y = 740;
         
         for(int i=0;i<20;i++){
             list[i]= new Point2D.Float(x,y);
-            y-=110;
-            if(i==8 || i==15) x-=110;
-            if(i==8) y=750;
-            if(i==15) y=650;
+            y-=90;
+            if(i==8 || i==15) x-=120;
+            if(i==8) y=640;
+            if(i==15) y=540;
         }
         
         return list;
     }
+    
+    private void manageInputs(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
+                for(int i=0;i<20;i++){
+                    Captain draco = new Captain("Mr. Johns",(float)dragonPositions[i].getX(),(float)dragonPositions[i].getY());
+                    dragons.add(draco);
+                }
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer > shootCoolDown){
+                shootTimer=0;
+                riderShoots.add(new RiderShoot(rider.getX(), rider.getY(), rider.getOrientation()));
+            }
+            rider.movement(deltaTime);
+    }
+    
+    private void renderSprites(){
+        
+        background.renderBackLayer(deltaTime, main.batch);
+        
+        for(LinkedListNode node = riderShoots.getFirstNode(); node != null;
+            node = node.getNextNode()){
+                RiderShoot rShoot = (RiderShoot)node.getData();
+                rShoot.update(deltaTime);
+                rShoot.render(main.batch,stateTime);
+            } 
+            
+            for(LinkedListNode node = enemyShoots.getFirstNode(); node != null; node = node.getNextNode()){
+                EnemyShoot eShoot = (EnemyShoot)node.getData();
+                eShoot.update(deltaTime);
+                eShoot.render(main.batch,stateTime);
+            }
+            rider.render(main.batch,stateTime,deltaTime);
+            for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                Dragon dragon = (Dragon)node.getData();
+                dragon.update(deltaTime, (80*deltaTime));
+                dragon.render(main.batch,stateTime,deltaTime);
+                if(dragon.getShooting()){
+                        enemyShoots.add(new EnemyShoot(dragon.getIsCommander(),dragon.getX()-20,dragon.getY()+15));
+                        dragon.restartShoot();
+                }
+            }
+            
+            infoPanel.render(deltaTime, main.batch);
+            background.renderFrontLayer(deltaTime, main.batch);
+            
+    }
+    
+    private void manageCollisions(){
+        int[] overlapedSprites = new int[3];
+            overlapedSprites[0]=-1;
+            for(LinkedListNode node1 = enemyShoots.getFirstNode(); node1 != null; node1 = node1.getNextNode()){
+                EnemyShoot eShoot = (EnemyShoot)node1.getData();
+                if(rider.getSprite().overlaps(eShoot.getSprite())){
+                    overlapedSprites[0]=1;
+                    overlapedSprites[1]= node1.getPosition();
+                }
+                for(LinkedListNode node2 = riderShoots.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
+                    RiderShoot rShoot = (RiderShoot)node2.getData();
+                    if(eShoot.getSprite().overlaps(rShoot.getSprite())){
+                        overlapedSprites[0]=2;
+                        overlapedSprites[1]= node1.getPosition();
+                        overlapedSprites[2]= node2.getPosition();
+                    } 
+                }
+            }
+            for(LinkedListNode node1 = dragons.getFirstNode(); node1 != null; node1 = node1.getNextNode()){
+                Dragon dragon = (Dragon)node1.getData();
+                if(rider.getSprite().overlaps(dragon.getSprite())){
+                    overlapedSprites[0]=3;
+                    overlapedSprites[1]= node1.getPosition();
+                }
+                for(LinkedListNode node2 = riderShoots.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
+                    RiderShoot rShoot = (RiderShoot)node2.getData();
+                    if(dragon.getSprite().overlaps(rShoot.getSprite())){
+                        overlapedSprites[0]=4;
+                        overlapedSprites[1]= node1.getPosition();
+                        overlapedSprites[2]= node2.getPosition();
+                    } 
+                }
+            }   
+            switch(overlapedSprites[0]){
+                //rider X enemy shoot
+                case 1:
+                    enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
+                    rider.hit();
+                    break;
+                //rider shoot X enemy shoot    
+                case 2:
+                    enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
+                    riderShoots.deleteNodeInPosition(overlapedSprites[2]);
+                    break;
+                //rider X dragon    
+                case 3:
+                    dragons.deleteNodeInPosition(overlapedSprites[1]);
+                    rider.hit();
+                    break;
+                //rider shoot X dragon    
+                case 4:
+                    dragons.deleteNodeInPosition(overlapedSprites[1]);
+                    riderShoots.deleteNodeInPosition(overlapedSprites[2]);
+                    break;    
+            }
+    }
+        
 }
 

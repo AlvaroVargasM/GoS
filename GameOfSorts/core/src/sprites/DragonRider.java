@@ -12,18 +12,23 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class DragonRider {
     float x,y;
-    public static int size = 96;
+    private static int size = 96;
     int knightSpeed = 250;
     private Animation[] knightAnimations;
+    private Animation[] hearts;
     private int knightPose;
+    public int life=3;
     
     public DragonRider(){
         y = 480;
         x = 50;
         knightPose = 2;
         knightAnimations = new Animation[5];
-        TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("rider.png"), size, size);
+        hearts = new Animation[1];
+        TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), size, size);
         for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, knightSpriteSheet[i]);
+        TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heart.png"), 640, 640);
+        hearts[0] = new Animation(0.15f, heartSprite[0]);
     }
     
     public void movement(float deltaTime){
@@ -40,17 +45,24 @@ public class DragonRider {
             if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
                 x+=knightSpeed*deltaTime;
                 if(x+size > Gdx.graphics.getWidth()) x = Gdx.graphics.getWidth()-size;
+                knightPose=2;
             }         
             if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
                 x-=knightSpeed*deltaTime;
                 if(x<0)x=0;
                 knightPose = 1;
             }
-            if(!(Gdx.input.isKeyPressed(Input.Keys.LEFT)) && !(Gdx.input.isKeyPressed(Input.Keys.DOWN)) && !(Gdx.input.isKeyPressed(Input.Keys.UP)))knightPose=2;
+
     }
     
     public void render(SpriteBatch batch, float stateTime, float deltaTime){
         batch.draw((TextureRegion) knightAnimations[knightPose].getKeyFrame(stateTime, true), x, y, size, size);
+        
+        int heartX = -10;
+        for(int i=0;i<life;i++){
+            heartX += 60;
+            batch.draw((TextureRegion) hearts[0].getKeyFrame(stateTime, true), heartX, 784, 50, 50);
+        } 
     }
     
     public Rectangle getSprite(){
@@ -62,5 +74,13 @@ public class DragonRider {
     }
     public float getY() {
         return y;
+    }
+    
+   public void hit(){
+       life-=1;
+   }
+    public String getOrientation() {
+        String orientation = (knightPose == 2) ? "right": (knightPose == 1) ? "left": (knightPose == 3) ? "up": "down";
+        return orientation;
     }
 }

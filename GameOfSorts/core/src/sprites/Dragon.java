@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.concurrent.ThreadLocalRandom;
-import static sprites.DragonRider.size;
 
 public abstract class Dragon {
     
