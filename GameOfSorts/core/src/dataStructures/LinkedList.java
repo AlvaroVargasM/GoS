@@ -127,19 +127,17 @@ public class LinkedList<GenericType>{
                 node2 = node2.getNextNode()){
                 Dragon dragonInNode2 = (Dragon) node2.getData();
                 if(dragonInNode1.getAge() > dragonInNode2.getAge()){
-                    if(ascending) swapPosition(dragonInNode1, dragonInNode2);
-                    //if(ascending) swapData(node1, node2);
+                    if(ascending) swapData(node1, node2);
                 }
                 else{
-                    if(!ascending) swapPosition(dragonInNode1, dragonInNode2);
-                    //if(!ascending) swapData(node2, node1);
+                    if(!ascending) if(!ascending) swapData(node2, node1);
                 }
             }
         }
     }
     
     
-    private void swapPosition(Dragon draco1, Dragon draco2){
+    private void swapPositions(Dragon draco1, Dragon draco2){
         int temp = draco2.getPosition();
         
         draco2.setPosition(draco1.getPosition());
