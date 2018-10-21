@@ -5,8 +5,9 @@ public class Commander extends Dragon{
     
     private String dragonsInCommand[];
 
-    public Commander(String name, float x, float y) {
-        super(name,"commander",x, y);
+    public Commander(String name, int position) {
+        super(name,"commander", position);
+        setResistance(3);
     }
     
     

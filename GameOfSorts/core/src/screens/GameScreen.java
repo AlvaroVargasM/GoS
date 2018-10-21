@@ -117,7 +117,10 @@ public class GameScreen implements Screen{
     private void manageInputs(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
                 for(int i=0;i<20;i++){
-                    Captain draco = new Captain("Mr. Johns",(float)dragonPositions[i].getX(),(float)dragonPositions[i].getY());
+                    dragonPositions = setInitialPositions(dragonPositions);
+                    Commander draco = new Commander("Clavija",i);
+                    draco.setFather("Porcio");
+                    draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
                     dragons.add(draco);
                 }
             }
@@ -130,33 +133,41 @@ public class GameScreen implements Screen{
     
     private void renderSprites(){
         
+        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 100*deltaTime;
+        
+        
         background.renderBackLayer(deltaTime, main.batch);
         
-        for(LinkedListNode node = riderShoots.getFirstNode(); node != null;
-            node = node.getNextNode()){
-                RiderShoot rShoot = (RiderShoot)node.getData();
-                rShoot.update(deltaTime);
-                rShoot.render(main.batch,stateTime);
-            } 
+        for(LinkedListNode node = riderShoots.getFirstNode(); node != null; node = node.getNextNode()){
+            RiderShoot rShoot = (RiderShoot)node.getData();
+            rShoot.update(deltaTime);
+            rShoot.render(main.batch,stateTime);
+        } 
             
-            for(LinkedListNode node = enemyShoots.getFirstNode(); node != null; node = node.getNextNode()){
-                EnemyShoot eShoot = (EnemyShoot)node.getData();
-                eShoot.update(deltaTime);
-                eShoot.render(main.batch,stateTime);
-            }
-            rider.render(main.batch,stateTime,deltaTime);
-            for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
-                Dragon dragon = (Dragon)node.getData();
-                dragon.update(deltaTime, (80*deltaTime));
-                dragon.render(main.batch,stateTime,deltaTime);
-                if(dragon.getShooting()){
-                        enemyShoots.add(new EnemyShoot(dragon.getIsCommander(),dragon.getX()-20,dragon.getY()+15));
-                        dragon.restartShoot();
-                }
-            }
+        for(LinkedListNode node = enemyShoots.getFirstNode(); node != null; node = node.getNextNode()){
+            EnemyShoot eShoot = (EnemyShoot)node.getData();
+            eShoot.update(deltaTime);
+            eShoot.render(main.batch,stateTime);
+        }
             
-            infoPanel.render(deltaTime, main.batch);
-            background.renderFrontLayer(deltaTime, main.batch);
+        rider.render(main.batch,stateTime,deltaTime);
+            
+        for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+            Dragon dragon = (Dragon)node.getData();
+            dragon.update(deltaTime, (80*deltaTime));
+            dragon.render(dragonPositions[dragon.getPosition()].x,dragonPositions[dragon.getPosition()].y,main.batch,stateTime,deltaTime);
+            if(dragon.getShooting()){
+                enemyShoots.add(new EnemyShoot(dragon.getIsCommander(),dragon.getX()-20,dragon.getY()+15));
+                dragon.restartShoot();
+            }
+            //////clicking a dragon
+            if(Gdx.input.isTouched() && (dragon.getSprite().contains(Gdx.input.getX(), Gdx.input.getY()))){
+                infoPanel.setDragonInfo(dragon);
+            }
+        }
+            
+        infoPanel.render(deltaTime, main.batch);
+        background.renderFrontLayer(deltaTime, main.batch);
             
     }
     

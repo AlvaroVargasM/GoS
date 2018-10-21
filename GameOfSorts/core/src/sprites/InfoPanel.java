@@ -30,13 +30,15 @@ public class InfoPanel {
         font.setColor(Color.BLACK);
         font2.setColor(Color.WHITE);
         
-        layout = name = dracoClass = age = father = resistance = fireVelocity = classAtribute= "AAAA";
+        layout="non specific";
+        name = dracoClass = age = father = resistance = fireVelocity = classAtribute= "";
         
-        for(int i=0; i<subDragons.length;i++) subDragons[i]="BBBBBB";
+        for(int i=0; i<subDragons.length;i++) subDragons[i]="";
     }
     
     public void render(float deltaTime, SpriteBatch batch){
         batch.draw(panel,1249,0, 206, 864);
+        font2.draw(batch,layout, x-13, 825);
         font.draw(batch,name, x, 735);
         font.draw(batch,dracoClass, x, 670);
         font.draw(batch,age, x, 610);
@@ -75,11 +77,11 @@ public class InfoPanel {
             }
         }else{
             Commander draco = (Commander)dragon;
-            for(int i=0; i<subDragons.length;i++){
-                if(draco.getDragonsInCommand()[i] != null){
-                    subDragons[i] = draco.getDragonsInCommand()[i];
-                }
-            }
+            for(int i=0; i<draco.getDragonsInCommand().length;i++) subDragons[i] = draco.getDragonsInCommand()[i];
         }
     }
+    
+    public void setLayout(String layout){
+        this.layout=layout;
+    } 
 }
