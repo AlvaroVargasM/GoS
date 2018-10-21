@@ -1,5 +1,7 @@
 package dataStructures;
 
+import sprites.Dragon;
+
 /**
  * LinkedList main purpose is to point to the firstNode of the list. It allows to
  * insert a new LinkedListNode to this list and store any amount of data in a 
@@ -107,6 +109,32 @@ public class LinkedList<GenericType>{
             pos++;
         }
     }
+    
+    public void selectionSort(){
+        if(firstNode.getData().getClass() == Dragon.class){
+            for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
+                node1 = node1.getNextNode()){
+                Dragon dragonInNode1 = (Dragon) node1.getData();
+                for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
+                    node2 = node2.getNextNode()){
+                    Dragon dragonInNode2 = (Dragon) node2.getData();
+                    if(dragonInNode1.getAge() > dragonInNode2.getAge()){
+                        GenericType temp = (GenericType) node2.getData();
+                        node2.setData(node1.getData());
+                        node1.setData(temp);
+                    }
+                }
+            }updatePositions();
+        }
+    }
+    
+    public void insertionSort(){
+        if(firstNode.getData().getClass() == Dragon.class){
+            
+            updatePositions();
+        }
+    }
+    
     /**
      * Getter for FirstNode attribute.
      * @return firstNode: LinkedListNode
