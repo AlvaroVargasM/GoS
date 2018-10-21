@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.concurrent.ThreadLocalRandom;
-import static sprites.DragonRider.size;
 
 public abstract class Dragon {
     
@@ -34,17 +33,18 @@ public abstract class Dragon {
     private boolean shooting;
     public boolean remove = false;
     
-    public Dragon(String name, String dragonClass, float x,float y){
-        
+    public Dragon(String name, String dragonClass, int position){
+        this.name = name;
+        this.position=position;
         this.dragonClass= dragonClass;
         isCommander = (dragonClass.equals("commander")) ? true: false;
-        this.x=x;
-        this.y=y;
+
         this.shootCharge = 0;
+        
+        this.resistance = 1;
         
         this.age = ThreadLocalRandom.current().nextInt(1, 1000 + 1);
         this.chargeSpeed = ThreadLocalRandom.current().nextInt(1, 10 + 1);
-        this.resistance = ThreadLocalRandom.current().nextInt(1, 3 + 1);
         
         this.dragonSprite = (isCommander) ? "dracoR.png" : (dragonClass.equals("captain")) ? "dracoG.png" : "dracoS.png";
         this.size = (isCommander) ? 128: 96;
@@ -54,15 +54,18 @@ public abstract class Dragon {
     }
 
     public void update(float deltaTime, float moveLeft){
-        x -= moveLeft;
-        shootCharge+=deltaTime;
-        
-        if(x<0) remove=true;
+
     }
     
-    public void render(SpriteBatch batch, float stateTime, float deltaTime){
+    public void render(float x, float y, SpriteBatch batch, float stateTime, float deltaTime){
+        if(x<0) remove=true;
+        
+        this.x = x;
+        this.y = y;
+        
         batch.draw((TextureRegion) animation.getKeyFrame(stateTime, true), x, y, size, size);
         
+        shootCharge+=deltaTime;
         if(shootCharge > (float)chargeSpeed && !(shooting)){
             shootCharge=0;
             this.shooting = true;
@@ -74,9 +77,10 @@ public abstract class Dragon {
     }
     
     public void restartShoot(){ shooting =false;}
+    public void setPosition(int position) { this.position = position; }
     public int getPosition() { return position; }
     public void setFather(String father) { this.father = father; }
-    public void setPosition(int position) { this.position = position; }
+    public void setResistance(int resistance){ this.resistance = resistance; }
     public float getX(){return x;};
     public float getY(){return y;};
     public boolean getShooting(){ return shooting;}
