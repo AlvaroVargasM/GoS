@@ -65,16 +65,14 @@ public class InfoPanel {
         this.fireVelocity = ""+dragon.getChargeSpeed();
         this.classAtribute = (dracoClass.equals("infantry")) ? "Captained by" : "Superior of";
         
+        /////////////fix
         if(dracoClass.equals("infantry")){
             Infantry draco = (Infantry) dragon;
             this.subDragons[0] = draco.getCaptain();
         }else if(dracoClass.equals("captain")){
             Captain draco = (Captain)dragon;
-            for(int i=0; i<subDragons.length;i++){
-                if(draco.getInfantryInCommand()[i] != null){
-                    subDragons[i] = draco.getInfantryInCommand()[i];
-                }
-            }
+            for(int i=0; i<draco.getInfantryInCommand().length;i++) subDragons[i] = draco.getInfantryInCommand()[i];
+                
         }else{
             Commander draco = (Commander)dragon;
             for(int i=0; i<draco.getDragonsInCommand().length;i++) subDragons[i] = draco.getDragonsInCommand()[i];

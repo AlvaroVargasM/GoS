@@ -82,9 +82,41 @@ public class GameScreen implements Screen{
  
             renderSprites();
             
-            main.batch.draw(test,testX, testY, 210, 218);
+            //main.batch.draw(test,testX, testY, 210, 218);
             
             if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                    Dragon dragon = (Dragon)node.getData();
+                    System.out.println(dragon.getPosition()+"  | ");
+                }
+                System.out.println("___________________");
+                dragons.selectionSort();
+                
+                for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                    Dragon dragon = (Dragon)node.getData();
+                    System.out.println(dragon.getPosition()+"  | ");
+                }
+                
+                /*for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                    Dragon dragon = (Dragon)node.getData();
+                    float initialX = dragon.getX();
+                    float initialY = dragon.getY();
+                    float finalX = dragonPositions[dragon.getPosition()].x;
+                    float finalY = dragonPositions[dragon.getPosition()].y;
+                   
+                    while(initialX != finalX){
+                        dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
+                        initialX += (initialX > finalX) ? 5: -5;
+                    }
+                    while(initialY != finalY){
+                        dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
+                        initialY += (initialY > finalY) ? 5: -5;
+                    }
+                }*/
+            }
+            
+            
+            /*if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
                 float X2 = testX+150;
                 float Y2 = testY+150;
                 while(testX != X2){
@@ -94,10 +126,8 @@ public class GameScreen implements Screen{
                 while(testY != Y2){
                     main.batch.draw(test,testX, testY, 210, 218);
                     testY+= 5;
-                }
-                
-                
-            }
+                } 
+            }*/
             
             manageCollisions();
             
@@ -136,15 +166,33 @@ public class GameScreen implements Screen{
     }
     
     private void manageInputs(){
+        
+        //Crate horde
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
-            for(int i=0;i<20;i++){
-                dragonPositions = setInitialPositions(dragonPositions);
-                Commander draco = new Commander("Clavija",i);
-                draco.setFather("Porcio");
+            dragonPositions = setInitialPositions(dragonPositions);
+            for(int i=0;i<20;i+=3){
+                Commander draco = new Commander("Clavija Jr",i);
+                draco.setFather("Clavija");
                 draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
                 dragons.add(draco);
+                
+                Captain draco2 = new Captain("Bryan Jr",i+1);
+                draco2.setFather("Navaja");
+                draco2.setInfantryInCommand(new String[]{"John","Claire","Pom"});
+                dragons.add(draco2);
+                
+                if(i+2 < 20){
+                    Infantry draco3 = new Infantry("Charles Jr",i+2);
+                draco3.setFather("Charles");
+                draco3.setCaptain("Harlock");
+                dragons.add(draco3);
+                }
             }
         }
+        
+
+        
+        
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer > shootCoolDown){
             shootTimer=0;
             riderShoots.add(new RiderShoot(rider.getX(), rider.getY(), rider.getOrientation()));
@@ -188,7 +236,7 @@ public class GameScreen implements Screen{
         }
             
         infoPanel.render(deltaTime, main.batch);
-        background.renderFrontLayer(deltaTime, main.batch);
+        //background.renderFrontLayer(deltaTime, main.batch);
             
     }
     

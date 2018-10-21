@@ -33,7 +33,13 @@ public abstract class Dragon {
     private boolean shooting;
     public boolean remove = false;
     
+    private static int[] usedAges = new int[20];
+    
     public Dragon(String name, String dragonClass, int position){
+        if(position ==0 ){
+            for(int i=0; i<usedAges.length; i++) usedAges[i]=0;
+        }
+        
         this.name = name;
         this.position=position;
         this.dragonClass= dragonClass;
@@ -43,7 +49,25 @@ public abstract class Dragon {
         
         this.resistance = 1;
         
-        this.age = ThreadLocalRandom.current().nextInt(1, 1000 + 1);
+        
+        boolean ageRegistered=false;
+        while(!ageRegistered){
+            int age = ThreadLocalRandom.current().nextInt(1, 1000 + 1);
+            boolean ageUsed=false;
+            for(int i=0; i< usedAges.length; i++){
+                if(age == usedAges[i]){
+                    ageUsed = true;
+                }
+            }
+            if(!ageUsed){
+                usedAges[position] = age;
+                this.age = age;
+                ageRegistered =true;
+            }
+        }
+        
+        
+        
         this.chargeSpeed = ThreadLocalRandom.current().nextInt(1, 10 + 1);
         
         this.dragonSprite = (isCommander) ? "dracoR.png" : (dragonClass.equals("captain")) ? "dracoG.png" : "dracoS.png";
