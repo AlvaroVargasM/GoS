@@ -83,6 +83,7 @@ public class GameScreen implements Screen{
  
             renderSprites();
             
+<<<<<<< HEAD
             //main.batch.draw(test,testX, testY, 210, 218);
             
             if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
@@ -97,39 +98,18 @@ public class GameScreen implements Screen{
                 for(LinkedListNode node2 = dragons.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
                     Dragon dragon = (Dragon)node2.getData();
                     System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
-                }
+=======
+            if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
                 
-                /*for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
                     Dragon dragon = (Dragon)node.getData();
-                    float initialX = dragon.getX();
-                    float initialY = dragon.getY();
-                    float finalX = dragonPositions[dragon.getPosition()].x;
-                    float finalY = dragonPositions[dragon.getPosition()].y;
-                   
-                    while(initialX != finalX){
-                        dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
-                        initialX += (initialX > finalX) ? 5: -5;
-                    }
-                    while(initialY != finalY){
-                        dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
-                        initialY += (initialY > finalY) ? 5: -5;
-                    }
-                }*/
-            }
-            
-            
-            /*if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
-                float X2 = testX+150;
-                float Y2 = testY+150;
-                while(testX != X2){
-                    main.batch.draw(test,testX, testY, 210, 218);
-                    testX+= 5;
+                    int n = dragon.getPosition() +1;
+                    if(n==20) n=0;
+                    dragon.setPosition(n);
+>>>>>>> 92e38a7c476945f148380169595829df1504a230
                 }
-                while(testY != Y2){
-                    main.batch.draw(test,testX, testY, 210, 218);
-                    testY+= 5;
-                } 
-            }*/
+                dragonTransition();
+            }
             
             manageCollisions();
             
@@ -185,9 +165,9 @@ public class GameScreen implements Screen{
                 
                 if(i+2 < 20){
                     Infantry draco3 = new Infantry("Charles Jr",i+2);
-                draco3.setFather("Charles");
-                draco3.setCaptain("Harlock");
-                dragons.add(draco3);
+                    draco3.setFather("Charles");
+                    draco3.setCaptain("Harlock");
+                    dragons.add(draco3);
                 }
             }
         }
@@ -204,7 +184,7 @@ public class GameScreen implements Screen{
     
     private void renderSprites(){
         
-        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 100*deltaTime;
+        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 60*deltaTime;
         
         
         background.renderBackLayer(deltaTime, main.batch);
@@ -295,9 +275,61 @@ public class GameScreen implements Screen{
                 case 4:
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
+                    ///////////
+                    for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                        Dragon dragon = (Dragon)node.getData();
+                        int n = dragon.getPosition() +1;
+                        if(n==20) n=0;
+                        dragon.setPosition(n);
+                    }
+                    dragonTransition();
+                    ////////
+                    
                     break;    
             }
+            
+            
     }
+    
+    private void dragonTransition(){
+        for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+            Dragon dragon = (Dragon)node.getData();
+            float initialX = dragon.getX();
+            float initialY = dragon.getY();
+            float finalX = dragonPositions[dragon.getPosition()].x;
+            float finalY = dragonPositions[dragon.getPosition()].y;
+            
+            float vel = 100*deltaTime;
+            
+            if(initialX < finalX){
+                while(initialX < finalX){
+                    dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
+                    initialX += vel;
+                }
+            }
+            if(initialX > finalX){
+                while(initialX > finalX){
+                    dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
+                    initialX -= vel;
+                }
+            }
+            
+            if(initialY < finalY){
+                while(initialY < finalY){
+                    dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
+                    initialY += vel;
+                }
+            }
+            if(initialY > finalY){
+                while(initialY > finalY){
+                    dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
+                    initialY -= vel;
+                }
+            }
+                    
+        }
+    }
+<<<<<<< HEAD
     
     private void updateDragonPositions(){
         int pos = 0;
@@ -307,5 +339,7 @@ public class GameScreen implements Screen{
         }
     }
         
+=======
+>>>>>>> 92e38a7c476945f148380169595829df1504a230
 }
 
