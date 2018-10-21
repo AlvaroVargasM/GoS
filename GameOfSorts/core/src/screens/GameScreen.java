@@ -83,7 +83,6 @@ public class GameScreen implements Screen{
  
             renderSprites();
             
-<<<<<<< HEAD
             //main.batch.draw(test,testX, testY, 210, 218);
             
             if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
@@ -98,15 +97,14 @@ public class GameScreen implements Screen{
                 for(LinkedListNode node2 = dragons.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
                     Dragon dragon = (Dragon)node2.getData();
                     System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
-=======
+                }
             if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
                 
                 for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
-                    Dragon dragon = (Dragon)node.getData();
+                    Dragon dragon = (Dragon) node.getData();
                     int n = dragon.getPosition() +1;
                     if(n==20) n=0;
                     dragon.setPosition(n);
->>>>>>> 92e38a7c476945f148380169595829df1504a230
                 }
                 dragonTransition();
             }
