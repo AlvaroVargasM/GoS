@@ -7,7 +7,6 @@ public class Commander extends Dragon{
 
     public Commander(String name, int position) {
         super(name,"commander", position);
-        setResistance(3);
     }
     
     

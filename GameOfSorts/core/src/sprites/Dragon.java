@@ -45,10 +45,7 @@ public abstract class Dragon {
         this.dragonClass= dragonClass;
         isCommander = (dragonClass.equals("commander")) ? true: false;
 
-        this.shootCharge = 0;
-        
-        this.resistance = 1;
-        
+        this.shootCharge = 0;      
         
         boolean ageRegistered=false;
         while(!ageRegistered){
@@ -71,6 +68,7 @@ public abstract class Dragon {
         this.chargeSpeed = ThreadLocalRandom.current().nextInt(1, 10 + 1);
         
         this.dragonSprite = (isCommander) ? "dracoR.png" : (dragonClass.equals("captain")) ? "dracoG.png" : "dracoS.png";
+        this.resistance = (isCommander) ? 3: (dragonClass.equals("captain")) ? 2: 1;  
         this.size = (isCommander) ? 128: 96;
         
         TextureRegion[][] dragonSpriteSheet = TextureRegion.split(new Texture(dragonSprite), this.size, this.size);
