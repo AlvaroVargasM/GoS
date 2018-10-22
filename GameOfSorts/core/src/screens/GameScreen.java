@@ -22,6 +22,7 @@ import sprites.EnemyShoot;
 import sprites.DragonRider;
 import dataStructures.LinkedList;
 import dataStructures.LinkedListNode;
+import java.util.Random;
 import sprites.InfoPanel;
 import sprites.scrollingBackground;
 
@@ -82,10 +83,26 @@ public class GameScreen implements Screen{
  
             renderSprites();
             
+            //main.batch.draw(test,testX, testY, 210, 218);
+            
+            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+                for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+                    Dragon dragon = (Dragon)node.getData();
+                    System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
+                }
+                System.out.println("___________________");
+                dragons.selectionSort();
+                updateDragonPositions();
+                
+                for(LinkedListNode node2 = dragons.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
+                    Dragon dragon = (Dragon)node2.getData();
+                    System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
+                }
+            }
             if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
                 
                 for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
-                    Dragon dragon = (Dragon)node.getData();
+                    Dragon dragon = (Dragon) node.getData();
                     int n = dragon.getPosition() +1;
                     if(n==20) n=0;
                     dragon.setPosition(n);
@@ -310,6 +327,14 @@ public class GameScreen implements Screen{
                 }
             }
                     
+        }
+    }
+    
+    private void updateDragonPositions(){
+        int pos = 0;
+        for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
+            ((Dragon)node.getData()).setPosition(pos);
+            pos++;
         }
     }
 }

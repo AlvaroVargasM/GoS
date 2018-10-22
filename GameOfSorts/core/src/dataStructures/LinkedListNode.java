@@ -8,7 +8,7 @@ package dataStructures;
  * @author Erick Barrantes
  * @param <GenericType>
  */
-public class LinkedListNode<GenericType> {
+public class LinkedListNode<GenericType>{
     private int position;
     private GenericType data;
     private LinkedListNode nextNode;
