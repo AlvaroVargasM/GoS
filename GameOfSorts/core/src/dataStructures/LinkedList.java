@@ -119,7 +119,7 @@ public class LinkedList<GenericType>{
         }
     }
     
-    public void selectionSort(boolean ascending){
+    private void selectionSort(boolean ascending){
         for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
             node1 = node1.getNextNode()){
             for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
@@ -151,23 +151,21 @@ public class LinkedList<GenericType>{
     private void insertionSort(boolean ascending){
         int lenght = getSize();
         for(int i = 1; i < lenght; i++){
-            Dragon dragon = (Dragon) getNodeInPosition(i).getData(); 
-            int speed = dragon.getChargeSpeed();
+            Dragon key = (Dragon) getNodeInPosition(i).getData(); 
             int j = i-1;
-            Dragon dragon2 = (Dragon) getNodeInPosition(j).getData();
             if(ascending){
-                while (j>=0 && dragon2.getChargeSpeed() > speed){ 
+                while (j>=0 && ((Dragon)getNodeInPosition(j).getData()).getChargeSpeed() 
+                       > key.getChargeSpeed()){ 
                     getNodeInPosition(j+1).setData(getNodeInPosition(j).getData());
                     j--;
-                    dragon2 = (Dragon) getNodeInPosition(j).getData();
                 }
             }else{
-                while (j>=0 && dragon2.getChargeSpeed() < speed){ 
+                while (j>=0 && ((Dragon)getNodeInPosition(j).getData()).getChargeSpeed() 
+                       < key.getChargeSpeed()){ 
                     getNodeInPosition(j+1).setData(getNodeInPosition(j).getData());
                     j--;
-                    dragon2 = (Dragon) getNodeInPosition(j).getData();
                 }
-            }getNodeInPosition(j+1).setData(speed);
+            }getNodeInPosition(j+1).setData(key);
         }
     }
     
