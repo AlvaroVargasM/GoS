@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import screens.GameOver;
 import screens.GameScreen;
 import screens.Menu;
+import screens.GameOver;
+
 
 
 public class GameOfSorts extends Game{
@@ -24,7 +26,7 @@ public class GameOfSorts extends Game{
 	public void create () {
             
             batch = new SpriteBatch();
-            this.setScreen(new GameScreen(this));
+            this.setScreen(new GameOver(this, 5));
 	}
 
 	@Override
