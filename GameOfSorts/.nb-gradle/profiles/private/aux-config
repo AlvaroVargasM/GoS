@@ -4,32 +4,10 @@
   <auxiliary>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-      <group name="GdxLearns">
-        <file>file:/C:/Users/luism/Desktop/GoS/GameOfSorts/core/src/dataStructures/LinkedList.java</file>
-        <file>file:/C:/Users/luism/Desktop/GoS/GameOfSorts/core/src/screens/GameScreen.java</file>
-        <file>file:/C:/Users/luism/Desktop/GoS/GameOfSorts/core/src/sprites/DragonRider.java</file>
-        <file>file:/C:/Users/luism/Desktop/GoS/GameOfSorts/core/src/sprites/RiderShoot.java</file>
-        <file>file:/C:/Users/luism/Desktop/GoS/GameOfSorts/core/src/com/mygdx/game/Main.java</file>
-      </group>
-=======
-      <group>
-        <file>file:/C:/Users/Erick%20Barrantes/Documents/TEC/2018%20-%20II%20Semestre/Algoritmos%20y%20Estructuras%20de%20Datos%20I/Proyectos/Proyecto%202/GoS/GameOfSorts/core/src/sprites/EnemyShoot.java</file>
-        <file>file:/C:/Users/Erick%20Barrantes/Documents/TEC/2018%20-%20II%20Semestre/Algoritmos%20y%20Estructuras%20de%20Datos%20I/Proyectos/Proyecto%202/GoS/GameOfSorts/core/src/sprites/Dragon.java</file>
-        <file>file:/C:/Users/Erick%20Barrantes/Documents/TEC/2018%20-%20II%20Semestre/Algoritmos%20y%20Estructuras%20de%20Datos%20I/Proyectos/Proyecto%202/GoS/GameOfSorts/core/src/screens/GameScreen.java</file>
-        <file>file:/C:/Users/Erick%20Barrantes/Documents/TEC/2018%20-%20II%20Semestre/Algoritmos%20y%20Estructuras%20de%20Datos%20I/Proyectos/Proyecto%202/GoS/GameOfSorts/core/src/screens/Menu.java</file>
-        <file>file:/C:/Users/Erick%20Barrantes/Documents/TEC/2018%20-%20II%20Semestre/Algoritmos%20y%20Estructuras%20de%20Datos%20I/Proyectos/Proyecto%202/GoS/GameOfSorts/core/src/sprites/RiderShoot.java</file>
-        <file>file:/C:/Users/Erick%20Barrantes/Documents/TEC/2018%20-%20II%20Semestre/Algoritmos%20y%20Estructuras%20de%20Datos%20I/Proyectos/Proyecto%202/GoS/GameOfSorts/core/src/com/mygdx/game/Main.java</file>
-      </group>
+      <group/>
     </open-files>
-    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group/>
->>>>>>> 04d18b2f3d1310f6d71e123e4c16873d27598de1
-    </open-files>
-    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group name="GdxLearns"/>
     </open-files>
   </auxiliary>
 </gradle-project-properties>
