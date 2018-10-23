@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.Main;
-import static com.mygdx.game.Main.winHeight;
+import static com.game.main.GameOfSorts.winHeight;
+import com.game.main.GameOfSorts;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,12 +49,9 @@ public class GameScreen implements Screen{
     InfoPanel infoPanel;
     
     
-    Texture test = new Texture("sun.png");
-    float testX=50; 
-    float testY =200;
-    Main main;
+    GameOfSorts main;
 
-    public GameScreen(Main game) {
+    public GameScreen(GameOfSorts game) {
         this.main = game;
         
         background = new scrollingBackground();
@@ -82,24 +80,15 @@ public class GameScreen implements Screen{
             manageInputs();
  
             renderSprites();
+           
             
-            //main.batch.draw(test,testX, testY, 210, 218);
-            
-            if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
-                for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
-                    Dragon dragon = (Dragon)node.getData();
-                    System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
-                }
-                System.out.println("___________________");
+            if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
                 dragons.selectionSort();
                 updateDragonPositions();
-                
-                for(LinkedListNode node2 = dragons.getFirstNode(); node2 != null; node2 = node2.getNextNode()){
-                    Dragon dragon = (Dragon)node2.getData();
-                    System.out.println(dragon.getPosition()+"  | " + dragon.getAge());
-                }
+                dragonTransition();
+
             }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.F)){
+            if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
                 
                 for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
                     Dragon dragon = (Dragon) node.getData();
@@ -151,12 +140,6 @@ public class GameScreen implements Screen{
         //Crate horde
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
             dragonPositions = setInitialPositions(dragonPositions);
-            
-            /*Commander draco = new Commander("ClavijaJr",0);
-            draco.setFather("Clavija");
-            draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
-            dragons.add(draco);
-            */
             for(int i=0;i<20;i+=3){
                 Commander draco = new Commander("ClavijaJr",i);
                 draco.setFather("Clavija");
@@ -190,7 +173,7 @@ public class GameScreen implements Screen{
     private void renderSprites(){
         
         ///////dragon velocity
-        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 40*deltaTime;
+        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 20*deltaTime;
         
         
         background.renderBackLayer(deltaTime, main.batch);

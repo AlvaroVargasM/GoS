@@ -10,10 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Main;
+import com.game.main.GameOfSorts;
 
 public class GameOver implements Screen{
     
@@ -28,7 +26,7 @@ public class GameOver implements Screen{
     private static int againX;
     private static int exitX;
     
-    Main main;
+    GameOfSorts main;
     Texture  againTexture, exitTexture, exitOn, exitOff, againOn, againOff;
     Rectangle againRectangle, exitRectangle;
     Boolean hoverAgain, hoverExit;
@@ -37,7 +35,7 @@ public class GameOver implements Screen{
     int horde;
     
     
-    public GameOver(Main game, int horde){
+    public GameOver(GameOfSorts game, int horde){
         
         this.main =game;
         
@@ -59,14 +57,14 @@ public class GameOver implements Screen{
         againTexture = new Texture("tryAgainOff.png");
         againOn = new Texture("tryAgainOn.png");
         againOff = new Texture("tryAgainOff.png");
-        againX = ((Main.winWidth-optionWidth)/2)-450;
-        againRectangle = new Rectangle(againX,(Main.winHeight-100)-optionHeight,optionWidth,optionHeight); 
+        againX = ((GameOfSorts.winWidth-optionWidth)/2)-450;
+        againRectangle = new Rectangle(againX,(GameOfSorts.winHeight-100)-optionHeight,optionWidth,optionHeight); 
         
         exitTexture = new Texture("exitOff2.png");
         exitOn = new Texture("exitOn2.png");
         exitOff = new Texture("exitOff2.png");
-        exitX = ((Main.winWidth-optionWidth)/2)+450;
-        exitRectangle = new Rectangle(exitX,(Main.winHeight-100)-optionHeight,optionWidth,optionHeight);
+        exitX = ((GameOfSorts.winWidth-optionWidth)/2)+450;
+        exitRectangle = new Rectangle(exitX,(GameOfSorts.winHeight-100)-optionHeight,optionWidth,optionHeight);
         
         background = new Texture("GameOverBackground.png");
         
