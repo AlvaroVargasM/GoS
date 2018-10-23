@@ -5,7 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Main;
+import com.game.main.GameOfSorts;
 
 public class Menu implements Screen{
     
@@ -19,12 +19,12 @@ public class Menu implements Screen{
     private static int exit_X;
     private static final int exit_Y = 100;
     
-    Main main;
+    GameOfSorts main;
     Texture title, playTexture, exitTexture, exitOn, exitOff, playOn, playOff;
     Rectangle playRectangle, exitRectangle;
     Boolean hoverPlay, hoverExit;
     
-    public Menu(Main game){
+    public Menu(GameOfSorts game){
         this.main =game;
         
         background = new Texture("castle.png");
@@ -33,14 +33,14 @@ public class Menu implements Screen{
         playTexture = new Texture("playOff.png");
         playOn = new Texture("playOn.png");
         playOff = new Texture("playOff.png");
-        play_X = (Main.winWidth-optionWidth)/2;
-        playRectangle = new Rectangle(play_X,(Main.winHeight-play_Y)-optionHeight,optionWidth,optionHeight); 
+        play_X = (GameOfSorts.winWidth-optionWidth)/2;
+        playRectangle = new Rectangle(play_X,(GameOfSorts.winHeight-play_Y)-optionHeight,optionWidth,optionHeight); 
         
         exitTexture = new Texture("exitOff.png");
         exitOn = new Texture("exitOn.png");
         exitOff = new Texture("exitOff.png");
-        exit_X = (Main.winWidth-optionWidth)/2;
-        exitRectangle = new Rectangle(exit_X,(Main.winHeight-exit_Y)-optionHeight,optionWidth,optionHeight);
+        exit_X = (GameOfSorts.winWidth-optionWidth)/2;
+        exitRectangle = new Rectangle(exit_X,(GameOfSorts.winHeight-exit_Y)-optionHeight,optionWidth,optionHeight);
         
     }
             

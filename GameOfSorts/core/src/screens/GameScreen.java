@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.Main;
-import static com.mygdx.game.Main.winHeight;
+import static com.game.main.GameOfSorts.winHeight;
+import com.game.main.GameOfSorts;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,9 +49,9 @@ public class GameScreen implements Screen{
     InfoPanel infoPanel;
     
     
-    Main main;
+    GameOfSorts main;
 
-    public GameScreen(Main game) {
+    public GameScreen(GameOfSorts game) {
         this.main = game;
         
         background = new scrollingBackground();
