@@ -132,7 +132,7 @@ public class GameScreen implements Screen{
     public void dispose() {}
     
     private Point2D.Float[] setInitialPositions(Point2D.Float[] list){
-        float x = 1690;
+        float x = 1590;
         float y = 740;
         
         for(int i=0;i<20;i++){
@@ -151,19 +151,25 @@ public class GameScreen implements Screen{
         //Crate horde
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
             dragonPositions = setInitialPositions(dragonPositions);
+            
+            /*Commander draco = new Commander("ClavijaJr",0);
+            draco.setFather("Clavija");
+            draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
+            dragons.add(draco);
+            */
             for(int i=0;i<20;i+=3){
-                Commander draco = new Commander("Clavija Jr",i);
+                Commander draco = new Commander("ClavijaJr",i);
                 draco.setFather("Clavija");
                 draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
                 dragons.add(draco);
                 
-                Captain draco2 = new Captain("Bryan Jr",i+1);
+                Captain draco2 = new Captain("BryanJr",i+1);
                 draco2.setFather("Navaja");
                 draco2.setInfantryInCommand(new String[]{"John","Claire","Pom"});
                 dragons.add(draco2);
                 
                 if(i+2 < 20){
-                    Infantry draco3 = new Infantry("Charles Jr",i+2);
+                    Infantry draco3 = new Infantry("CharlesJr",i+2);
                     draco3.setFather("Charles");
                     draco3.setCaptain("Harlock");
                     dragons.add(draco3);
@@ -183,7 +189,8 @@ public class GameScreen implements Screen{
     
     private void renderSprites(){
         
-        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 60*deltaTime;
+        ///////dragon velocity
+        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 40*deltaTime;
         
         
         background.renderBackLayer(deltaTime, main.batch);
@@ -211,11 +218,13 @@ public class GameScreen implements Screen{
                 dragon.restartShoot();
             }
             //////clicking a dragon
-            if(Gdx.input.isTouched() && (dragon.getSprite().contains(Gdx.input.getX(), Gdx.input.getY()))){
+            if(Gdx.input.isTouched() && (dragon.getSprite().contains(Gdx.input.getX(), (winHeight-Gdx.input.getY()) ))){
                 infoPanel.setDragonInfo(dragon);
             }
-        }
             
+           
+        }
+        
         infoPanel.render(deltaTime, main.batch);
         //background.renderFrontLayer(deltaTime, main.batch);
             
@@ -274,15 +283,7 @@ public class GameScreen implements Screen{
                 case 4:
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
-                    ///////////
-                    for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
-                        Dragon dragon = (Dragon)node.getData();
-                        int n = dragon.getPosition() +1;
-                        if(n==20) n=0;
-                        dragon.setPosition(n);
-                    }
-                    dragonTransition();
-                    ////////
+                    
                     
                     break;    
             }

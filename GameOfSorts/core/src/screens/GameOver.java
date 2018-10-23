@@ -44,12 +44,12 @@ public class GameOver implements Screen{
         title = new Animation[1];
         
         
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("pix2.ttf"));
+        /*FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("pix2.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.size = 300;
         parameter.characters = "0123456789";
         font = generator.generateFont(parameter);
-        font.setColor(new Color(Color.GOLD));
+        font.setColor(new Color(Color.GOLD));*/
         
         this.horde = horde;
         
@@ -98,7 +98,7 @@ public class GameOver implements Screen{
         main.batch.draw((TextureRegion) title[0].getKeyFrame(stateTime, true), 0, 600, 1442, 208);
 
         String showHorde = ""+horde;
-        font.draw(main.batch, showHorde, (Main.winWidth-optionWidth)/2 + 100 - (100*showHorde.length()), 470);
+        //font.draw(main.batch, showHorde, (Main.winWidth-optionWidth)/2 + 100 - (100*showHorde.length()), 470);
         
         if(Gdx.input.isTouched()){
            if(hoverAgain){this.dispose(); main.setScreen(new GameScreen(main));}
