@@ -9,18 +9,17 @@ public class Dragon {
     private String father;
     private int age;
     private int resistance;
-    private int volocity;
+    private int velocity;
 
     
-    public Dragon() {
-    }
+    public Dragon() {}
     public Dragon(String name, String rank, String father, int age, int resistance, int velocity) {
         this.name = name;
         this.rank = rank;
         this.father = father;
         this.age = age;
         this.resistance = resistance;
-        this.volocity = velocity;
+        this.velocity = velocity;
     }
 
     
@@ -59,10 +58,10 @@ public class Dragon {
         this.resistance = resistance;
     }
 
-    public int getVolocity() {
-        return volocity;
+    public int getVelocity() {
+        return velocity;
     }
-    public void setVolocity(int volocity) {
-        this.volocity = volocity;
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }   
 }

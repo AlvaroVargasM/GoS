@@ -16,7 +16,6 @@ public class DragonService {
     public List <Dragon> getDragons(){
         List <Dragon> dragons = new ArrayList <Dragon>();
             dragons.add (new Dragon ("Fausto","Commander","Leroy",600,2,1));
-            dragons.add (new Dragon ("Mark","Captain","Lis",800,3,5));
             
         return dragons;
     }
