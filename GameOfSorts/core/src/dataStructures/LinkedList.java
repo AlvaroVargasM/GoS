@@ -168,6 +168,42 @@ public class LinkedList<GenericType>{
             }getNodeInPosition(j+1).setData(key);
         }
     }
+    public void quickSort(){
+        if(firstNode != null){
+            Random random = new Random();
+            quickSort(0, size-1,random.nextBoolean());
+            updatePositions();
+        }
+    }
+            
+    private void quickSort(int low, int high, boolean ascending){ 
+        if (low < high){
+            int pi = partition(low, high, ascending);
+            
+            quickSort(low, pi-1, ascending); 
+            quickSort(pi+1, high, ascending); 
+        } 
+    }
+    
+    private int partition(int low, int high, boolean ascending){ 
+        Dragon pivot = (Dragon) getNodeInPosition(high).getData();  
+        int i = (low-1);
+        for (int j=low; j<high; j++){
+            if(ascending){
+                if (((Dragon)getNodeInPosition(j).getData()).getAge() <= pivot.getAge()){
+                    i++; 
+                    swapData(getNodeInPosition(j), getNodeInPosition(i));
+                }
+            }else{
+                if (((Dragon)getNodeInPosition(j).getData()).getAge() >= pivot.getAge()){
+                    i++;
+                    swapData(getNodeInPosition(i), getNodeInPosition(j));
+                }
+            }
+        } 
+        swapData(getNodeInPosition(high), getNodeInPosition(i+1));
+        return i+1; 
+    } 
     
     /**
      * Getter for FirstNode attribute.
