@@ -26,7 +26,7 @@ public class GameOfSorts extends Game{
 	public void create () {
             
             batch = new SpriteBatch();
-            this.setScreen(new GameOver(this, 5));
+            this.setScreen(new GameScreen(this));
 	}
 
 	@Override

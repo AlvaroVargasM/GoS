@@ -24,6 +24,7 @@ public abstract class Dragon {
     private int chargeSpeed;
     
     private int resistance;
+    private int life;
     
     private String dragonSprite;
     private Animation animation;
@@ -63,12 +64,11 @@ public abstract class Dragon {
             }
         }
         
-        
-        
         this.chargeSpeed = ThreadLocalRandom.current().nextInt(1, 10 + 1);
         
         this.dragonSprite = (isCommander) ? "dracoR.png" : (dragonClass.equals("captain")) ? "dracoG.png" : "dracoS.png";
         this.resistance = (isCommander) ? 3: (dragonClass.equals("captain")) ? 2: 1;  
+        this.life=resistance;
         this.size = (isCommander) ? 128: 96;
         
         TextureRegion[][] dragonSpriteSheet = TextureRegion.split(new Texture(dragonSprite), this.size, this.size);
@@ -98,19 +98,56 @@ public abstract class Dragon {
         return new Rectangle((int)x,(int)y,size,size);
     }
     
-    public void restartShoot(){ shooting =false;}
-    public void setPosition(int position) { this.position = position; }
-    public int getPosition() { return position; }
-    public void setFather(String father) { this.father = father; }
-    public void setResistance(int resistance){ this.resistance = resistance; }
-    public float getX(){return x;};
-    public float getY(){return y;};
-    public boolean getShooting(){ return shooting;}
-    public boolean getIsCommander(){ return isCommander;}
-    public String getDragonClass() { return dragonClass; }
-    public String getName() { return name; }
-    public String getFather() { return father; }
-    public int getAge() { return age; }
-    public int getChargeSpeed() { return chargeSpeed; }
-    public int getResistance() { return resistance; }
+    public void restartShoot(){ 
+        shooting =false;
+    }
+    public void hit(){
+        life-=1;
+    }
+    public int getLife(){
+        return life;
+    }
+    
+    public void setPosition(int position) { 
+        this.position = position; 
+    }
+    public int getPosition() { 
+        return position; 
+    }
+    public void setFather(String father) { 
+        this.father = father; 
+    }
+    public void setResistance(int resistance){ 
+        this.resistance = resistance; 
+    }
+    public float getX(){
+        return x;
+    }
+    public float getY(){
+        return y;
+    }
+    public boolean getShooting(){ 
+        return shooting;
+    }
+    public boolean getIsCommander(){
+        return isCommander;
+    }
+    public String getDragonClass() { 
+        return dragonClass; 
+    }
+    public String getName() { 
+        return name; 
+    }
+    public String getFather() {
+        return father; 
+    }
+    public int getAge() { 
+        return age; 
+    }
+    public int getChargeSpeed() { 
+        return chargeSpeed;
+    }
+    public int getResistance() { 
+        return resistance;
+    }
 }
