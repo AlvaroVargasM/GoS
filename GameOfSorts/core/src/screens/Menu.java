@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.main.GameOfSorts;
 
+/**
+ * Game´s menu screen. Allows acces to the main game screen.
+ * @author Luis Mariano Ramírez Segura
+ */
 public class Menu implements Screen{
     
     private Texture background;
@@ -24,31 +28,29 @@ public class Menu implements Screen{
     Rectangle playRectangle, exitRectangle;
     Boolean hoverPlay, hoverExit;
     
+    /**
+     * Menu's single constructor.
+     * @param game Single instance of the class GameOfSorts, used to manage visual rendering and screen disposal.
+     */
     public Menu(GameOfSorts game){
         this.main =game;
-        
         background = new Texture("castle.png");
-        
         title = new Texture("title.png");
         playTexture = new Texture("playOff.png");
         playOn = new Texture("playOn.png");
         playOff = new Texture("playOff.png");
         play_X = (GameOfSorts.winWidth-optionWidth)/2;
-        playRectangle = new Rectangle(play_X,(GameOfSorts.winHeight-play_Y)-optionHeight,optionWidth,optionHeight); 
-        
+        playRectangle = new Rectangle(play_X,(GameOfSorts.winHeight-play_Y)-optionHeight,optionWidth,optionHeight);
         exitTexture = new Texture("exitOff.png");
         exitOn = new Texture("exitOn.png");
         exitOff = new Texture("exitOff.png");
         exit_X = (GameOfSorts.winWidth-optionWidth)/2;
         exitRectangle = new Rectangle(exit_X,(GameOfSorts.winHeight-exit_Y)-optionHeight,optionWidth,optionHeight);
         
-    }
-            
-    
+    }        
     @Override
     public void show() {
     }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -75,7 +77,6 @@ public class Menu implements Screen{
         
         main.batch.end();
     }
-
     @Override
     public void resize(int width, int height) {}
     @Override

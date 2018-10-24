@@ -12,8 +12,6 @@ import static com.game.main.GameOfSorts.winHeight;
 import com.game.main.GameOfSorts;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Arrays;
 import sprites.RiderShoot;
 import sprites.Dragon;
 import sprites.Infantry;
@@ -25,38 +23,37 @@ import dataStructures.LinkedList;
 import dataStructures.LinkedListNode;
 import java.util.Random;
 import sprites.InfoPanel;
-import sprites.scrollingBackground;
+import sprites.ScrollingBackground;
 
-
+/**
+ * Game screen. It has the game loop and all the mechanics
+ * @author Luis Mariano Ramírez
+ */
 public class GameScreen implements Screen{
     
     private DragonRider rider = new DragonRider();
-    public static float shootCoolDown= 0.15f;
-    public float shootTimer;
-    
+    private static float shootCoolDown= 0.15f;
+    private float shootTimer;
     private LinkedList<RiderShoot> riderShoots;
     private LinkedList<EnemyShoot> enemyShoots;
     private LinkedList<Dragon> dragons;
-    
-    int[] overlapedSprites;
-    
+    private int[] overlapedSprites;
     private Point2D.Float[] dragonPositions = new Point2D.Float[20];
-    
-    float deltaTime;
-    float stateTime;
-    
-    scrollingBackground background;
-    InfoPanel infoPanel;
-    
-    int sortCounter;
-    
-    
-    GameOfSorts main;
+    private float deltaTime;
+    private float stateTime;
+    private ScrollingBackground background;
+    private InfoPanel infoPanel;
+    private int sortCounter;
+    private GameOfSorts main;
 
+    /**
+     * Game screen constructor.
+     * @param game Single instance of the class GameOfSorts, used to manage visual rendering and screen disposal.
+     */
     public GameScreen(GameOfSorts game) {
         this.main = game;
         
-        background = new scrollingBackground();
+        background = new ScrollingBackground();
         infoPanel = new InfoPanel();
         
         riderShoots = new LinkedList<RiderShoot>();
@@ -68,8 +65,9 @@ public class GameScreen implements Screen{
         
         sortCounter=0;
         
-        ///
+        //temporal, need to call the server for a horde
         createHorde();
+        ///
     }
     
     @Override
@@ -151,6 +149,7 @@ public class GameScreen implements Screen{
         return list;
     }
     
+    //temporal
     private void createHorde(){
         dragonPositions = setInitialPositions(dragonPositions);
             for(int i=0;i<20;i+=3){
@@ -172,6 +171,10 @@ public class GameScreen implements Screen{
                 }
             }
     }
+    
+    /**
+     * Method to manage the responses for both keyboard and mouse inputs from the user.
+     */
     private void manageInputs(){
         
         //Crate horde
@@ -207,11 +210,13 @@ public class GameScreen implements Screen{
         rider.movement(deltaTime);
     }
     
+    /**
+     * Method that takes care of updating and rendering every frame all the sprites on the screens.
+     */
     private void renderSprites(){
         
         // dragon velocity
         for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 40*deltaTime;
-        
         
         background.renderBackLayer(deltaTime, main.batch);
         
@@ -231,7 +236,6 @@ public class GameScreen implements Screen{
             
         for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
             Dragon dragon = (Dragon)node.getData();
-            dragon.update(deltaTime, (80*deltaTime));
             dragon.render(dragonPositions[dragon.getPosition()].x,dragonPositions[dragon.getPosition()].y,main.batch,stateTime,deltaTime);
             if(dragon.getShooting()){
                 enemyShoots.add(new EnemyShoot(dragon.getIsCommander(),dragon.getX()-20,dragon.getY()+15));
@@ -247,6 +251,9 @@ public class GameScreen implements Screen{
             
     }
     
+    /**
+     * Method that manages all the collision detection and it's responses.
+     */
     private void manageCollisions(){
         int[] overlapedSprites = new int[4];
             overlapedSprites[0]=-1;
@@ -323,6 +330,9 @@ public class GameScreen implements Screen{
             
     }
     
+    /**
+     * It animates the displacement of every dragon when the order layout changes.
+     */
     private void dragonTransition(){
         for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){
             Dragon dragon = (Dragon)node.getData();
@@ -330,7 +340,6 @@ public class GameScreen implements Screen{
             float initialY = dragon.getY();
             float finalX = dragonPositions[dragon.getPosition()].x;
             float finalY = dragonPositions[dragon.getPosition()].y;
-            
             float vel = 100*deltaTime;
             
             if(initialX < finalX){
@@ -345,7 +354,6 @@ public class GameScreen implements Screen{
                     initialX -= vel;
                 }
             }
-            
             if(initialY < finalY){
                 while(initialY < finalY){
                     dragon.render(initialX,initialY,main.batch,stateTime,deltaTime);
@@ -361,7 +369,10 @@ public class GameScreen implements Screen{
                     
         }
     }
-    
+            
+    /**
+     * Updates all the dragon's positions. Used every time the order layout changes.
+     */
     private void updateDragonPositions(){
         int pos = 0;
         for(LinkedListNode node = dragons.getFirstNode(); node != null; node = node.getNextNode()){

@@ -3,7 +3,6 @@ package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,14 +12,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.main.GameOfSorts;
 
+/**
+ * Game over screen. Is shown when the player dies.
+ * @author Luis Mariano Ramírez
+ */
 public class GameOver implements Screen{
     
     private Animation[] title;
-    
     float stateTime;
-    
     private Texture background;
-    
     private static int optionWidth = 278;
     private static int optionHeight = 152;
     private static int againX;
@@ -30,11 +30,14 @@ public class GameOver implements Screen{
     Texture  againTexture, exitTexture, exitOn, exitOff, againOn, againOff;
     Rectangle againRectangle, exitRectangle;
     Boolean hoverAgain, hoverExit;
-    
     BitmapFont font;
     int horde;
     
-    
+    /**
+     * Game over constructor.
+     * @param game Single instance of the class GameOfSorts, used to manage visual rendering and screen disposal.
+     * @param horde Number of horde reach by the player.
+     */
     public GameOver(GameOfSorts game, int horde){
         this.main =game;
         
@@ -61,12 +64,9 @@ public class GameOver implements Screen{
         
         background = new Texture("GameOverBackground.png");
     }
-            
-    
     @Override
     public void show() {
     }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -96,7 +96,6 @@ public class GameOver implements Screen{
         }
         main.batch.end();
     }
-
     @Override
     public void resize(int width, int height) {}
     @Override
