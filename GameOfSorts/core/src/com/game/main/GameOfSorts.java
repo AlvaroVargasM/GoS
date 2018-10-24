@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import screens.GameOver;
 import screens.GameScreen;
 import screens.Menu;
+import screens.GameOver;
+
 
 
 public class GameOfSorts extends Game{

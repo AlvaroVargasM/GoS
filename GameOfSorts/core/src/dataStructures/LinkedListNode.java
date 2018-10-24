@@ -1,5 +1,7 @@
 package dataStructures;
 
+import sprites.Dragon;
+
 /**
  * Node for LinkedList class. Its main purpose is to store the data needed for 
  * the LinkedList and point to the next Node in the list.
@@ -93,7 +95,7 @@ public class LinkedListNode<GenericType>{
     }
     
     public String toString(){
-        String str = Integer.toString((Integer) data);
+        String str = Integer.toString(((Dragon) data).getChargeSpeed());
         return str;
     }
 }

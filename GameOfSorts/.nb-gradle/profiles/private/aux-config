@@ -4,14 +4,14 @@
   <auxiliary>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group name="GdxLearns"/>
-    </open-files>
-    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group name="GdxLearns">
         <file>file:/C:/Users/luism/Desktop/GameOfSorts/core/src/screens/GameOver.java</file>
         <file>file:/C:/Users/luism/Desktop/GameOfSorts/core/src/screens/GameScreen.java</file>
       </group>
+    </open-files>
+    <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+      <group name="GdxLearns"/>
     </open-files>
   </auxiliary>
 </gradle-project-properties>

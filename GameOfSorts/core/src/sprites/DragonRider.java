@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class DragonRider {
     float x,y;
-    private static int size = 96;
+    private static int size = 90 ;
     int knightSpeed = 250;
     private Animation[] knightAnimations;
     private Animation[] hearts;
@@ -25,7 +25,7 @@ public class DragonRider {
         knightPose = 2;
         knightAnimations = new Animation[5];
         hearts = new Animation[1];
-        TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), size, size);
+        TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), 96, 96);
         for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, knightSpriteSheet[i]);
         TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heart.png"), 640, 640);
         hearts[0] = new Animation(0.15f, heartSprite[0]);
