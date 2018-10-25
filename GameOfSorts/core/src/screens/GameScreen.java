@@ -45,6 +45,7 @@ public class GameScreen implements Screen{
     private InfoPanel infoPanel;
     private int sortCounter;
     private GameOfSorts main;
+    private int horde;
 
     /**
      * Game screen constructor.
@@ -65,6 +66,8 @@ public class GameScreen implements Screen{
         
         sortCounter=0;
         
+        horde=1;
+        
         //temporal, need to call the server for a horde
         createHorde();
         ///
@@ -81,7 +84,7 @@ public class GameScreen implements Screen{
             deltaTime = Gdx.graphics.getDeltaTime();
             stateTime += deltaTime;
             shootTimer += deltaTime;
-            if(sortCounter > 2) sortCounter = 1;
+            if(sortCounter > 3) sortCounter = 1;
 
             manageInputs();
  
@@ -115,7 +118,7 @@ public class GameScreen implements Screen{
             
             if(rider.life==0){
                 this.dispose(); 
-                main.setScreen(new GameOver(main,0));
+                main.setScreen(new GameOver(main,horde));
             }
             
             if(dragons.getSize()==0) createHorde();
@@ -285,6 +288,9 @@ public class GameScreen implements Screen{
                         overlapedSprites[0]=4;
                         overlapedSprites[1]= node1.getPosition();
                         overlapedSprites[2]= node2.getPosition();
+                        dragon.hit();
+                        overlapedSprites[3] = (dragon.getLife() < 1) ? 1: 0;
+                        System.out.println(dragon.getLife());//////
                     } 
                 }
             }   
@@ -306,24 +312,30 @@ public class GameScreen implements Screen{
                     rider.hit();
                     break;
                 //rider shoot X dragon
-                /////////////////////
                 case 4:
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
-                    dragons.deleteNodeInPosition(overlapedSprites[1]);
+                    if(overlapedSprites[3]==1){
+                        dragons.deleteNodeInPosition(overlapedSprites[1]);
+                        System.out.println("Eliminado");////////
+                        sortCounter++;
+                        switch(sortCounter){
+                            case 1:
+                                dragons.selectionSort();
+                                infoPanel.setLayout("Selection Sort");
+                                break;
+                            case 2:
+                                dragons.insertionSort();
+                                infoPanel.setLayout("Insertion Sort");
+                                break;
+                            case 3:
+                                dragons.quickSort();
+                                infoPanel.setLayout("Quick Sort");
+                                break;
+                        }
                     
-                    sortCounter++;
-                    switch(sortCounter){
-                        case 1:
-                            dragons.selectionSort();
-                            break;
-                        case 2:
-                            dragons.insertionSort();
-                            break;
+                        updateDragonPositions();
+                        dragonTransition();
                     }
-                    
-                    updateDragonPositions();
-                    dragonTransition();
-                    
                     break;    
             }
             
