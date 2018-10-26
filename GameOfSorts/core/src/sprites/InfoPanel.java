@@ -18,7 +18,7 @@ public class InfoPanel {
     int x;
     String[] subDragons = new String[6];
     BitmapFont font, font2;
-    BitmapFont blackFont, whiteFont;
+    BitmapFont blackFont, whiteFont, layoutFont;
     
     /**
      * InfoPanel class constructor.
@@ -28,7 +28,8 @@ public class InfoPanel {
         x=1270;
         blackFont = new BitmapFont(Gdx.files.internal("fontS.fnt"));
         whiteFont = new BitmapFont(Gdx.files.internal("fontL.fnt"));
-        layout="non specific";
+        layoutFont = new BitmapFont(Gdx.files.internal("fontLayout.fnt"));
+        layout="Non specific";
         name = dracoClass = age = father = resistance = fireVelocity = classAtribute= "";
         for(int i=0; i<subDragons.length;i++) subDragons[i]="";
     }
@@ -40,7 +41,7 @@ public class InfoPanel {
      */
     public void render(float deltaTime, SpriteBatch batch){
         batch.draw(panel,1249,0, 206, 864);
-        whiteFont.draw(batch, new GlyphLayout(whiteFont, layout), x-13, 825);
+        layoutFont.draw(batch, new GlyphLayout(layoutFont, layout), x-16, 825);
         whiteFont.draw(batch, new GlyphLayout(whiteFont, classAtribute), x-18, 380);
         blackFont.draw(batch, new GlyphLayout(blackFont, name), x, 735);
         blackFont.draw(batch, new GlyphLayout(blackFont, dracoClass), x, 670);
@@ -66,9 +67,9 @@ public class InfoPanel {
         this.age = ""+dragon.getAge();
         this.father = dragon.getFather();
         this.resistance = ""+dragon.getResistance();
-        this.fireVelocity = ""+dragon.getChargeSpeed();
+        this.fireVelocity = ""+(dragon.getChargeSpeed()*10);
         this.classAtribute = (dracoClass.equals("infantry")) ? "Captained by" : "Superior of";
-        /////////////fix
+
         if(dracoClass.equals("infantry")){
             Infantry draco = (Infantry) dragon;
             this.subDragons[0] = draco.getCaptain();

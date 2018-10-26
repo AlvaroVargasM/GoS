@@ -49,7 +49,7 @@ public class EnemyShoot {
      * @param stateTime Current delta time state, used for animation rendering.
      */
     public void render(SpriteBatch batch, float stateTime){
-        batch.draw((TextureRegion) animation.getKeyFrame(stateTime, true), x, y, 86, 69);
+        batch.draw((TextureRegion) animation.getKeyFrame(stateTime, true), x, y, 80, 63);
     }
     
     /**
@@ -57,6 +57,6 @@ public class EnemyShoot {
      * @return A rectangle with the sprite area.
      */
     public Rectangle getSprite(){
-        return new Rectangle((int)x,(int)y,86, 69);
+        return new Rectangle((int)x,(int)y,80, 63);
     }
 }
