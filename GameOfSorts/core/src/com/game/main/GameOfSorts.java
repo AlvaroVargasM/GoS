@@ -13,29 +13,38 @@ import screens.GameScreen;
 import screens.Menu;
 import screens.GameOver;
 
-
-
+/**
+ * Main game class, from here the screens are displayed or disposed.
+ * @author Luis Mariano Ramírez
+ */
 public class GameOfSorts extends Game{
         
-        public static final int winWidth = 1440;
-        public static final int winHeight = 864;
-    
-        public SpriteBatch batch;
-    
-	@Override
-	public void create () {
-            
-            batch = new SpriteBatch();
-            this.setScreen(new GameScreen(this));
-	}
+    /**
+     * Constant width of the game window.
+     */
+    public static final int winWidth = 1440;
 
-	@Override
-	public void render () {
-            super.render();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-	}
+    /**
+     * Constant heigth of the game window.
+     */
+    public static final int winHeight = 864;
+    
+    /**
+     * Main sprite batch, used for drawing sprites into the screen.
+     */
+    public SpriteBatch batch;
+    
+    @Override
+    public void create () {
+        batch = new SpriteBatch();
+        this.setScreen(new GameScreen(this));
+    }
+    @Override
+    public void render () {
+        super.render();
+    }
+    @Override
+    public void dispose () {
+        batch.dispose();
+    }
 }

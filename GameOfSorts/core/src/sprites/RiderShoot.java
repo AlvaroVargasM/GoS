@@ -8,17 +8,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-
+/**
+ * Class that manages the flames fired by the knight dragon.
+ * @author Luis Mariano Ramírez Segura
+ */
 public class RiderShoot {
     
-    public int speed = 500;
-    public Animation animation;
-    public float x,y;
-    public String orientation;
-    public int rotation;
-    public int[] offSets = new int[2];
-    public boolean remove = false;
+    private int speed = 500;
+    private Animation animation;
+    private float x,y;
+    private String orientation;
+    private int rotation;
+    private int[] offSets = new int[2];
+    private boolean remove = false;
     
+    /**
+     * Rider shoot class constructor.
+     * @param x Flame's initial x location.
+     * @param y Flame's initial y location.
+     * @param orientation Sprite rotation.
+     */
     public RiderShoot(float x,float y, String orientation){
         this.x=x;
         this.y=y;
@@ -30,6 +39,10 @@ public class RiderShoot {
         animation = new Animation(0.10f, blueFireSpriteSheet[0]); 
     }
     
+    /**
+     * Updates the shoot coordinates.
+     * @param deltaTime Game's delta time.
+     */
     public void update(float deltaTime){
         switch(rotation){
                 case 0: 
@@ -59,10 +72,19 @@ public class RiderShoot {
         }
     }
     
+    /**
+     * Renders on the screen the knight fire ball sprite.
+     * @param batch Game's rendering batch.
+     * @param stateTime Current delta time state, used for animation rendering.
+     */
     public void render(SpriteBatch batch, float stateTime){
         batch.draw((TextureRegion) animation.getKeyFrame(stateTime, true), x + offSets[0], y + offSets[1], 0, 0, 66, 49, 1, 1, rotation);
     }
     
+    /**
+     * Returns the fire ball area in shape of a rectangle, used for collision detection.
+     * @return A rectangle with the sprite area.
+     */
     public Rectangle getSprite(){
         return new Rectangle((int)x,(int)y,66,49);
     }

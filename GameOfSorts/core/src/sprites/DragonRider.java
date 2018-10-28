@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-
+/**
+ *
+ * @author luism
+ */
 public class DragonRider {
     float x,y;
     private static int size = 90 ;
@@ -17,8 +20,15 @@ public class DragonRider {
     private Animation[] knightAnimations;
     private Animation[] hearts;
     private int knightPose;
+
+    /**
+     *
+     */
     public int life=3;
     
+    /**
+     *
+     */
     public DragonRider(){
         y = 480;
         x = 50;
@@ -27,10 +37,14 @@ public class DragonRider {
         hearts = new Animation[1];
         TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), 96, 96);
         for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, knightSpriteSheet[i]);
-        TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heart.png"), 640, 640);
+        TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heartX.png"), 640, 640);
         hearts[0] = new Animation(0.15f, heartSprite[0]);
     }
     
+    /**
+     *
+     * @param deltaTime
+     */
     public void movement(float deltaTime){
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
                 y+=knightSpeed*deltaTime;
@@ -55,6 +69,12 @@ public class DragonRider {
 
     }
     
+    /**
+     *
+     * @param batch
+     * @param stateTime
+     * @param deltaTime
+     */
     public void render(SpriteBatch batch, float stateTime, float deltaTime){
         batch.draw((TextureRegion) knightAnimations[knightPose].getKeyFrame(stateTime, true), x, y, size, size);
         
@@ -65,20 +85,41 @@ public class DragonRider {
         } 
     }
     
+    /**
+     *
+     * @return
+     */
     public Rectangle getSprite(){
         return new Rectangle((int)x,(int)y,size,size);
     }
     
+    /**
+     *
+     * @return
+     */
     public float getX() {
         return x;
     }
+
+    /**
+     *
+     * @return
+     */
     public float getY() {
         return y;
     }
     
-   public void hit(){
+    /**
+     *
+     */
+    public void hit(){
        life-=1;
    }
+
+    /**
+     *
+     * @return
+     */
     public String getOrientation() {
         String orientation = (knightPose == 2) ? "right": (knightPose == 1) ? "left": (knightPose == 3) ? "up": "down";
         return orientation;
