@@ -85,8 +85,7 @@ public class AVLTree extends BinarySearchTree{
         if(node != null){
             int leftDepth = getMaxDepth(node.getLeftChild());
             int rightDepth = getMaxDepth(node.getRightChild());
-            if(leftDepth > rightDepth) return ++leftDepth;
-            else return ++rightDepth;
+            return (leftDepth > rightDepth) ? ++leftDepth : ++rightDepth;
         }else return 0;
     }
     
