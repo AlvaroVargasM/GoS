@@ -1,5 +1,7 @@
 package dataStructures;
 
+import sprites.Dragon;
+
 public class BinarySearchTree{
     protected BSTNode root;
     protected int size;
@@ -9,8 +11,12 @@ public class BinarySearchTree{
         this.size = 0;
     }
     
+    public void insertNode(Dragon dragon){
+        insertNode(new BSTNode(dragon));
+    }
+    
     public void insertNode(BSTNode newNode){
-        if(searchNode(newNode.getData()) == null){
+        if(searchNode(newNode.getData().getAge()) == null){
             if(isEmpty()) root = newNode;
             else insertNode(newNode, root);
             size++;
@@ -18,7 +24,7 @@ public class BinarySearchTree{
     }
     
     private void insertNode(BSTNode newNode, BSTNode actualNode){
-        if(newNode.getData() > actualNode.getData()){
+        if(newNode.getData().getAge() > actualNode.getData().getAge()){
             if(actualNode.getRightChild() == null)actualNode.setRightChild(newNode);
             else insertNode(newNode, actualNode.getRightChild());
         }else{
@@ -30,8 +36,8 @@ public class BinarySearchTree{
     public BSTNode searchNode(int data){
         BSTNode node = root;
         while(node != null){
-            if(node.getData() == data) return node;
-            else if(node.getData() < data) node = node.getRightChild();
+            if(node.getData().getAge() == data) return node;
+            else if(node.getData().getAge() < data) node = node.getRightChild();
             else node = node.getLeftChild();
         }
         return null;
@@ -39,9 +45,9 @@ public class BinarySearchTree{
     
     public BSTNode getFatherNode(int data){
         for(BSTNode node = root; node != null; 
-            node = (node.getData() < data) ? node.getRightChild() : node.getLeftChild()){
-            if(node.getRightChild() != null && node.getRightChild().getData() == data ||
-               node.getLeftChild() != null && node.getLeftChild().getData() == data) 
+            node = (node.getData().getAge() < data) ? node.getRightChild() : node.getLeftChild()){
+            if(node.getRightChild() != null && node.getRightChild().getData().getAge() == data ||
+               node.getLeftChild() != null && node.getLeftChild().getData().getAge() == data) 
                 return node;
         }
         return null;
@@ -56,7 +62,7 @@ public class BinarySearchTree{
             else if (node.getLeftChild() == null) node = node.getRightChild();
             else{
                 BSTNode temp = findMaxNode(node.getLeftChild());
-                BSTNode previousTemp = getFatherNode(temp.getData());
+                BSTNode previousTemp = getFatherNode(temp.getData().getAge());
                 node.setData(temp.getData());
                 if(previousTemp == node) previousTemp.setLeftChild(temp.getLeftChild());
                 else previousTemp.setRightChild(temp.getLeftChild());

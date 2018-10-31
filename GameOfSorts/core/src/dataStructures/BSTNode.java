@@ -1,10 +1,12 @@
 package dataStructures;
 
+import sprites.Dragon;
+
 public class BSTNode {
     protected BSTNode leftChild, rightChild;
-    protected int data;
+    protected Dragon data;
     
-    public BSTNode(int data){
+    public BSTNode(Dragon data){
         this.leftChild = this.rightChild = null;
         this.data = data;
     }
@@ -25,16 +27,16 @@ public class BSTNode {
         this.rightChild = rightChild;
     }
 
-    public int getData() {
+    public Dragon getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(Dragon data) {
         this.data = data;
     }
     
     public String toString(){
-        String str = Integer.toString(data);
+        String str = Integer.toString(data.getAge());
         return str;
     }
 }

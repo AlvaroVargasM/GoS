@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import static com.game.main.GameOfSorts.winHeight;
 import com.game.main.GameOfSorts;
+import dataStructures.AVLTree;
+import dataStructures.BinarySearchTree;
 
 import java.awt.geom.Point2D;
 import sprites.RiderShoot;
@@ -37,6 +39,8 @@ public class GameScreen implements Screen{
     private LinkedList<RiderShoot> riderShoots;
     private LinkedList<EnemyShoot> enemyShoots;
     private LinkedList<Dragon> dragons;
+    private BinarySearchTree binaryTreeDragons;
+    private AVLTree avlTreeDragons;
     private int[] overlapedSprites;
     private Point2D.Float[] dragonPositions = new Point2D.Float[20];
     private float deltaTime;
@@ -61,6 +65,8 @@ public class GameScreen implements Screen{
         riderShoots = new LinkedList<RiderShoot>();
         enemyShoots = new LinkedList<EnemyShoot>();
         dragons = new LinkedList<Dragon>();
+        binaryTreeDragons = new BinarySearchTree();
+        avlTreeDragons = new AVLTree();
         overlapedSprites = new int[3];
 
         dragonPositions = setInitialPositions(dragonPositions);
@@ -174,18 +180,24 @@ public class GameScreen implements Screen{
                 draco2.setFather("Bryan");
                 draco2.setInfantryInCommand(new String[]{"John","Claire","Pom"});
                 dragons.add(draco2);
+                binaryTreeDragons.insertNode(draco2);
+                avlTreeDragons.insertNode(draco2);
             }
             
             Commander draco = new Commander("MarcusJr",9);
             draco.setFather("Marcus");
             draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
             dragons.add(draco);
-            
+            binaryTreeDragons.insertNode(draco);
+            avlTreeDragons.insertNode(draco);
+
             for(int i=10; i<20;i++){
                 Infantry draco3 = new Infantry("CharlesJr",i);
-                    draco3.setFather("Charles");
-                    draco3.setCaptain("Harlock");
-                    dragons.add(draco3);
+                draco3.setFather("Charles");
+                draco3.setCaptain("Harlock");
+                dragons.add(draco3);
+                binaryTreeDragons.insertNode(draco3);
+                avlTreeDragons.insertNode(draco3);
             }
     }
     
@@ -286,6 +298,7 @@ public class GameScreen implements Screen{
             switch(overlapedSprites[0]){
 
                 case 1:
+                    
                     enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
                     rider.hit();
                     System.out.println("Kinght damaged by enemy flame");
@@ -298,6 +311,9 @@ public class GameScreen implements Screen{
                     break;
  
                 case 3:
+                    Dragon dragon = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
+                    binaryTreeDragons.deleteNode(dragon.getAge());
+                    avlTreeDragons.deleteNode(dragon.getAge());
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
                     rider.hit();
                     System.out.println("Dragons collision");
@@ -307,6 +323,9 @@ public class GameScreen implements Screen{
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
                     System.out.println("Enemy damaged");
                     if(overlapedSprites[3]==1){
+                        Dragon dragon1 = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
+                        binaryTreeDragons.deleteNode(dragon1.getAge());
+                        avlTreeDragons.deleteNode(dragon1.getAge());
                         dragons.deleteNodeInPosition(overlapedSprites[1]);
                         System.out.println("Enemy erradicated");
                         sortCounter++;

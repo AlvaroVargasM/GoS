@@ -1,17 +1,19 @@
 package dataStructures;
 
+import sprites.Dragon;
+
 public class AVLTree extends BinarySearchTree{
     
     public AVLTree(){
         super();
     }
     
-    public void insertNode(int data){
+    public void insertNode(Dragon data){
         BSTNode newNode = new AVLNode(data);
         super.insertNode(newNode);
         setTreeHeight();
         setBalanceFactor();
-        balanceTree(root, data);
+        balanceTree(root, data.getAge());
     }
     
     public void deleteNode(int data){
@@ -23,7 +25,7 @@ public class AVLTree extends BinarySearchTree{
     
     public void balanceTree(BSTNode node, int data){
         if(node != null){
-           if(node.getData() < data) balanceTree(node.getRightChild(), data);
+           if(node.getData().getAge() < data) balanceTree(node.getRightChild(), data);
            else balanceTree(node.getLeftChild(), data);
            AVLNode avlNode = (AVLNode) node;
            int balanceFactor = avlNode.getBalanceFactor();
@@ -50,7 +52,7 @@ public class AVLTree extends BinarySearchTree{
     }
     
     public void leftRotation(BSTNode unbalancedNode){
-        BSTNode fatherNode = getFatherNode(unbalancedNode.getData());
+        BSTNode fatherNode = getFatherNode(unbalancedNode.getData().getAge());
         BSTNode rightChild = unbalancedNode.getRightChild();
         BSTNode grandChildNode = rightChild.getLeftChild();
         rightChild.setLeftChild(unbalancedNode);
@@ -61,7 +63,7 @@ public class AVLTree extends BinarySearchTree{
     }
     
     public void rightRotation(BSTNode unbalancedNode){
-        BSTNode fatherNode = getFatherNode(unbalancedNode.getData());
+        BSTNode fatherNode = getFatherNode(unbalancedNode.getData().getAge());
         BSTNode leftChild = unbalancedNode.getLeftChild();
         BSTNode grandChildNode = leftChild.getRightChild();
         leftChild.setRightChild(unbalancedNode);
