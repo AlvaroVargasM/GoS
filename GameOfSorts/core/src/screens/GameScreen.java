@@ -46,7 +46,8 @@ public class GameScreen implements Screen{
     private int sortCounter;
     private GameOfSorts main;
     private int horde;
-
+    private int hordeCurrentSize;
+    private int hordeGlobalSize;
     /**
      * Game screen constructor.
      * @param game Single instance of the class GameOfSorts, used to manage visual rendering and screen disposal.
@@ -67,10 +68,9 @@ public class GameScreen implements Screen{
         sortCounter=0;
         
         horde=1;
-        
-        //temporal, need to call the server for a horde
+        hordeGlobalSize = 100;
+        hordeCurrentSize = 100;
         createHorde();
-        ///
     }
     
     @Override
@@ -85,7 +85,7 @@ public class GameScreen implements Screen{
             stateTime += deltaTime;
             shootTimer += deltaTime;
             if(sortCounter > 3) sortCounter = 1;
-
+            
             manageInputs();
  
             renderSprites();
@@ -120,8 +120,22 @@ public class GameScreen implements Screen{
                 this.dispose(); 
                 main.setScreen(new GameOver(main,horde));
             }
-            
-            if(dragons.getSize()==0) createHorde();
+
+            if(dragons.getSize()==0){
+                hordeCurrentSize -= 20;
+                System.out.println("Dragon wave beaten");
+                
+                if(hordeCurrentSize < 0 || hordeCurrentSize == 0){
+                    System.out.println("Horde "+ horde +" has being beaten");
+                    hordeGlobalSize = (int) Math.round(hordeGlobalSize+hordeGlobalSize*0.2);
+                    hordeCurrentSize = hordeGlobalSize;
+                    horde += 1;
+                    
+                    
+                }
+                createHorde();
+                System.out.println("A new dragon wave is coming");
+            }
             
             main.batch.end();
     }
@@ -152,26 +166,26 @@ public class GameScreen implements Screen{
         return list;
     }
     
-    //temporal
     private void createHorde(){
         dragonPositions = setInitialPositions(dragonPositions);
-            for(int i=0;i<20;i+=3){
-                Commander draco = new Commander("ClavijaJr",i);
-                draco.setFather("Clavija");
-                draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
-                dragons.add(draco);
-                
-                Captain draco2 = new Captain("BryanJr",i+1);
-                draco2.setFather("Navaja");
+            
+            for(int i=0; i<9;i++){
+                Captain draco2 = new Captain("BryanJr",i);
+                draco2.setFather("Bryan");
                 draco2.setInfantryInCommand(new String[]{"John","Claire","Pom"});
                 dragons.add(draco2);
-                
-                if(i+2 < 20){
-                    Infantry draco3 = new Infantry("CharlesJr",i+2);
+            }
+            
+            Commander draco = new Commander("MarcusJr",9);
+            draco.setFather("Marcus");
+            draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
+            dragons.add(draco);
+            
+            for(int i=10; i<20;i++){
+                Infantry draco3 = new Infantry("CharlesJr",i);
                     draco3.setFather("Charles");
                     draco3.setCaptain("Harlock");
                     dragons.add(draco3);
-                }
             }
     }
     
@@ -180,35 +194,10 @@ public class GameScreen implements Screen{
      */
     private void manageInputs(){
         
-        //Crate horde
-        if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
-            dragonPositions = setInitialPositions(dragonPositions);
-            for(int i=0;i<20;i+=3){
-                Commander draco = new Commander("ClavijaJr",i);
-                draco.setFather("Clavija");
-                draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
-                dragons.add(draco);
-                
-                Captain draco2 = new Captain("BryanJr",i+1);
-                draco2.setFather("Navaja");
-                draco2.setInfantryInCommand(new String[]{"John","Claire","Pom"});
-                dragons.add(draco2);
-                
-                if(i+2 < 20){
-                    Infantry draco3 = new Infantry("CharlesJr",i+2);
-                    draco3.setFather("Charles");
-                    draco3.setCaptain("Harlock");
-                    dragons.add(draco3);
-                }
-            }
-        }
-        
-
-        
-        
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer > shootCoolDown){
             shootTimer=0;
             riderShoots.add(new RiderShoot(rider.getX(), rider.getY(), rider.getOrientation()));
+            System.out.println("Flame fired");
         }
         rider.movement(deltaTime);
     }
@@ -219,7 +208,7 @@ public class GameScreen implements Screen{
     private void renderSprites(){
         
         // dragon velocity
-        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 40*deltaTime;
+        for(int i =0; i <dragonPositions.length; i++) dragonPositions[i].x -= 60*deltaTime;
         
         background.renderBackLayer(deltaTime, main.batch);
         
@@ -290,33 +279,36 @@ public class GameScreen implements Screen{
                         overlapedSprites[2]= node2.getPosition();
                         dragon.hit();
                         overlapedSprites[3] = (dragon.getLife() < 1) ? 1: 0;
-                        System.out.println(dragon.getLife());//////
                     } 
                 }
             }   
             
             switch(overlapedSprites[0]){
-                //rider X enemy shoot
+
                 case 1:
                     enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
                     rider.hit();
+                    System.out.println("Kinght damaged by enemy flame");
                     break;
-                //rider shoot X enemy shoot    
+
                 case 2:
                     enemyShoots.deleteNodeInPosition(overlapedSprites[1]);
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
+                    System.out.println("Flames collision");
                     break;
-                //rider X dragon    
+ 
                 case 3:
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
                     rider.hit();
+                    System.out.println("Dragons collision");
                     break;
-                //rider shoot X dragon
+                    
                 case 4:
                     riderShoots.deleteNodeInPosition(overlapedSprites[2]);
+                    System.out.println("Enemy damaged");
                     if(overlapedSprites[3]==1){
                         dragons.deleteNodeInPosition(overlapedSprites[1]);
-                        System.out.println("Eliminado");////////
+                        System.out.println("Enemy erradicated");
                         sortCounter++;
                         switch(sortCounter){
                             case 1:

@@ -36,7 +36,7 @@ public class RiderShoot {
         this.offSets[0] = 30;
         this.offSets[1] = 15;
         TextureRegion[][] blueFireSpriteSheet = TextureRegion.split(new Texture("blueFire.png"), 132, 98);
-        animation = new Animation(0.10f, blueFireSpriteSheet[0]); 
+        animation = new Animation(0.10f, (Object[]) blueFireSpriteSheet[0]); 
     }
     
     /**
