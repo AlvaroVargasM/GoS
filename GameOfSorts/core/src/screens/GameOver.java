@@ -48,7 +48,7 @@ public class GameOver implements Screen{
         this.horde = horde;
         
         TextureRegion[][] titleSprite = TextureRegion.split(new Texture("gameOverTitle.png"), 1442, 208);
-        title[0] = new Animation(0.15f, titleSprite[0]);
+        title[0] = new Animation(0.15f, (Object[]) titleSprite[0]);
         
         againTexture = new Texture("tryAgainOff.png");
         againOn = new Texture("tryAgainOn.png");

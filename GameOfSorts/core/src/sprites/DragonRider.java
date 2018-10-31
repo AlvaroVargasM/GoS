@@ -36,9 +36,9 @@ public class DragonRider {
         knightAnimations = new Animation[5];
         hearts = new Animation[1];
         TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), 96, 96);
-        for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, knightSpriteSheet[i]);
+        for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, (Object[])  knightSpriteSheet[i]);
         TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heartX.png"), 640, 640);
-        hearts[0] = new Animation(0.15f, heartSprite[0]);
+        hearts[0] = new Animation(0.15f,(Object[]) heartSprite[0]);
     }
     
     /**

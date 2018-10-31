@@ -31,7 +31,7 @@ public class EnemyShoot {
         this.y=y;
         TextureRegion[][] spriteSheet = (commander) ? TextureRegion.split(new Texture("skullShoot.png"), 166, 139): TextureRegion.split(new Texture("redFire.png"), 255, 126);
         animationSpeed= (commander) ? 0.06f: 0.08f;
-        animation = new Animation(animationSpeed, spriteSheet[0]); 
+        animation = new Animation(animationSpeed, (Object[]) spriteSheet[0]); 
     }
     
     /**
