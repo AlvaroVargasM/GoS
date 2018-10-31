@@ -70,7 +70,7 @@ public abstract class Dragon {
         this.life=resistance;
         this.size = (isCommander) ? 128: 96;
         TextureRegion[][] dragonSpriteSheet = TextureRegion.split(new Texture(dragonSprite), this.size, this.size);
-        this.animation = new Animation(0.15f, dragonSpriteSheet[1]);
+        this.animation = new Animation(0.15f, (Object[]) dragonSpriteSheet[1]);
     }
     
     /**

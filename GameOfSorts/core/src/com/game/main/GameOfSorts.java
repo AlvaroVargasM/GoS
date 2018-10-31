@@ -37,7 +37,7 @@ public class GameOfSorts extends Game{
     @Override
     public void create () {
         batch = new SpriteBatch();
-        this.setScreen(new GameScreen(this));
+        this.setScreen(new Menu(this));
     }
     @Override
     public void render () {
