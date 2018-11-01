@@ -33,16 +33,16 @@ public abstract class Dragon {
     
     /**
      * Generic dragon class constructor.
-     * @param name Unique name assigned to a new dragon.
      * @param dragonClass Specifies the class of the dragon.
      * @param position The dragon's intial position for layout display.
      */
-    public Dragon(String name, String dragonClass, int position){
+    public Dragon(String dragonClass, int position){
         
         if(position ==0 ){
             for(int i=0; i<usedAges.length; i++) usedAges[i]=0;
         }
-        this.name = name;
+        this.name = randomName();
+
         this.position=position;
         this.dragonClass= dragonClass;
         isCommander = (dragonClass.equals("commander")) ? true: false;
@@ -50,7 +50,7 @@ public abstract class Dragon {
    
         boolean ageRegistered=false;
         while(!ageRegistered){
-            int age = ThreadLocalRandom.current().nextInt(1, 1000 + 1);
+            int age = rand(1,1000);
             boolean ageUsed=false;
             for(int i=0; i< usedAges.length; i++){
                 if(age == usedAges[i]){
@@ -64,7 +64,7 @@ public abstract class Dragon {
             }
         }
         
-        this.chargeSpeed = ThreadLocalRandom.current().nextInt(1, 10 + 1);
+        this.chargeSpeed = rand(1,10);
         this.dragonSprite = (isCommander) ? "dracoR.png" : (dragonClass.equals("captain")) ? "dracoG.png" : "dracoS.png";
         this.resistance = (isCommander) ? 3: (dragonClass.equals("captain")) ? 2: 1;  
         this.life=resistance;
@@ -72,6 +72,32 @@ public abstract class Dragon {
         TextureRegion[][] dragonSpriteSheet = TextureRegion.split(new Texture(dragonSprite), this.size, this.size);
         this.animation = new Animation(0.15f, (Object[]) dragonSpriteSheet[1]);
     }
+    
+    /**
+     * Returns a five digit randome name.
+     */
+    public String randomName(){
+         String[] vowels = {"a","e","i","o","u"};
+         String[] syllables = {"q","w","r","t","y","p","s","d","f","g","h","j",
+                               "k","l","z","x","c","v","b","n","m"};
+         
+         String char1 = syllables[rand(0, 20)];
+         String char2 = vowels[rand(0, 4)];
+         String char3 = syllables[rand(0, 20)];
+         String char4 = vowels[rand(0, 4)];
+         String char5 = syllables[rand(0, 20)];
+         
+         return char1+char2+char3+char4+char5;
+     }
+    
+    /**
+     * Returns a random integer between two numbers
+     * @param min Minimum number of the range.
+     * @param max Maximum number of the range.
+     */
+    private int rand(int min, int max){ 
+         return ThreadLocalRandom.current().nextInt(min, max + 1);
+     }
     
     /**
      * Renders on the screen the dragon sprite.
