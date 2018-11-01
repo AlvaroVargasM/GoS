@@ -199,7 +199,6 @@ public class GameScreen implements Screen{
         }
         
         updateFatherNames(binaryTreeDragons.getRoot());
-        System.out.println(dragons.toString());
     }
     
     public void updateFatherNames(BSTNode dragonNode){
@@ -326,7 +325,6 @@ public class GameScreen implements Screen{
  
                 case 3:
                     Dragon dragon = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
-                    System.out.println(dragon.getAge());
                     binaryTreeDragons.deleteNode(dragon.getAge());
                     avlTreeDragons.deleteNode(dragon.getAge());
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
@@ -340,7 +338,6 @@ public class GameScreen implements Screen{
                     System.out.println("Enemy damaged");
                     if(overlapedSprites[3]==1){
                         Dragon dragon1 = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
-                        System.out.println(dragon1.getAge());
                         binaryTreeDragons.deleteNode(dragon1.getAge());
                         avlTreeDragons.deleteNode(dragon1.getAge());
                         dragons.deleteNodeInPosition(overlapedSprites[1]);
@@ -367,6 +364,8 @@ public class GameScreen implements Screen{
                     }
                     break;    
             }
+                    
+
             
             
     }
