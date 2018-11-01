@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import static com.game.main.GameOfSorts.winHeight;
 import com.game.main.GameOfSorts;
 import dataStructures.AVLTree;
+import dataStructures.BSTNode;
 import dataStructures.BinarySearchTree;
 
 import java.awt.geom.Point2D;
@@ -175,31 +176,43 @@ public class GameScreen implements Screen{
     private void createHorde(){
         dragonPositions = setInitialPositions(dragonPositions);
             
-            for(int i=0; i<9;i++){
-                Captain draco2 = new Captain(i);
-                dragons.add(draco2);
-                binaryTreeDragons.insertNode(draco2);
-                avlTreeDragons.insertNode(draco2);
-            }
-            
-            Commander draco = new Commander(9);
-            dragons.add(draco);
-            binaryTreeDragons.insertNode(draco);
-            avlTreeDragons.insertNode(draco);
+        Dragon draco = new Commander(9);
+        draco.setName(draco.randomName());
+        dragons.add(draco);
+        binaryTreeDragons.insertNode(draco);
+        avlTreeDragons.insertNode(draco);
+        
+        for(int i=0; i<9;i++){
+            Captain draco2 = new Captain(i);
+            draco2.setName(draco2.randomName());
+            dragons.add(draco2);
+            binaryTreeDragons.insertNode(draco2);
+            avlTreeDragons.insertNode(draco2);
+        }
 
-            for(int i=10; i<20;i++){
-<<<<<<< HEAD
-                Infantry draco3 = new Infantry(i);
-                    dragons.add(draco3);
-=======
-                Infantry draco3 = new Infantry("CharlesJr",i);
-                draco3.setFather("Charles");
-                draco3.setCaptain("Harlock");
-                dragons.add(draco3);
-                binaryTreeDragons.insertNode(draco3);
-                avlTreeDragons.insertNode(draco3);
->>>>>>> 79a3655dd70aec6ad2bdab6722512ad7e7511857
+        for(int i=10; i<20;i++){
+            Infantry draco3 = new Infantry(i);
+            draco3.setName(draco3.randomName());
+            dragons.add(draco3);
+            binaryTreeDragons.insertNode(draco3);
+            avlTreeDragons.insertNode(draco3);
+        }
+        
+        updateFatherNames(binaryTreeDragons.getRoot());
+        System.out.println(dragons.toString());
+    }
+    
+    public void updateFatherNames(BSTNode dragonNode){
+        if(dragonNode != null){
+            Dragon dragon = dragonNode.getData();
+            BSTNode fatherNode = binaryTreeDragons.getFatherNode(dragon.getAge());
+            if(fatherNode != null){
+                String fatherName = fatherNode.getData().getName();
+                dragon.setFather(fatherName);
             }
+            updateFatherNames(dragonNode.getLeftChild());
+            updateFatherNames(dragonNode.getRightChild());
+        }
     }
     
     /**
@@ -313,9 +326,11 @@ public class GameScreen implements Screen{
  
                 case 3:
                     Dragon dragon = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
+                    System.out.println(dragon.getAge());
                     binaryTreeDragons.deleteNode(dragon.getAge());
                     avlTreeDragons.deleteNode(dragon.getAge());
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
+                    updateFatherNames(binaryTreeDragons.getRoot());
                     rider.hit();
                     System.out.println("Dragons collision");
                     break;
@@ -325,9 +340,11 @@ public class GameScreen implements Screen{
                     System.out.println("Enemy damaged");
                     if(overlapedSprites[3]==1){
                         Dragon dragon1 = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
+                        System.out.println(dragon1.getAge());
                         binaryTreeDragons.deleteNode(dragon1.getAge());
                         avlTreeDragons.deleteNode(dragon1.getAge());
                         dragons.deleteNodeInPosition(overlapedSprites[1]);
+                        updateFatherNames(binaryTreeDragons.getRoot());
                         System.out.println("Enemy erradicated");
                         sortCounter++;
                         switch(sortCounter){

@@ -95,7 +95,7 @@ public class LinkedListNode<GenericType>{
     }
     
     public String toString(){
-        String str = Integer.toString(((Dragon) data).getAge());
+        String str = ((Dragon) data).getName();
         return str;
     }
 }
