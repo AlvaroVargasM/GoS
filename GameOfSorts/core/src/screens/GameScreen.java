@@ -176,23 +176,20 @@ public class GameScreen implements Screen{
     private void createHorde(){
         dragonPositions = setInitialPositions(dragonPositions);
             
-        Dragon draco = new Commander(9);
-        draco.setName(draco.randomName());
-        dragons.add(draco);
-        binaryTreeDragons.insertNode(draco);
-        avlTreeDragons.insertNode(draco);
-        
         for(int i=0; i<9;i++){
             Captain draco2 = new Captain(i);
-            draco2.setName(draco2.randomName());
             dragons.add(draco2);
             binaryTreeDragons.insertNode(draco2);
             avlTreeDragons.insertNode(draco2);
         }
+        
+        Dragon draco = new Commander(9);
+        dragons.add(draco);
+        binaryTreeDragons.insertNode(draco);
+        avlTreeDragons.insertNode(draco);
 
         for(int i=10; i<20;i++){
             Infantry draco3 = new Infantry(i);
-            draco3.setName(draco3.randomName());
             dragons.add(draco3);
             binaryTreeDragons.insertNode(draco3);
             avlTreeDragons.insertNode(draco3);
