@@ -78,7 +78,8 @@ public abstract class Dragon {
      */
     public String randomName(){
          String[] vowels = {"a","e","i","o","u"};
-         String[] syllables = {"q","w","r","t","y","p","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"};
+         String[] syllables = {"q","w","r","t","y","p","s","d","f","g","h","j",
+                               "k","l","z","x","c","v","b","n","m"};
          
          String char1 = syllables[rand(0, 20)];
          String char2 = vowels[rand(0, 4)];
@@ -220,6 +221,10 @@ public abstract class Dragon {
      */
     public String getName() { 
         return name; 
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

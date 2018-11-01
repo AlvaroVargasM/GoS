@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import static com.game.main.GameOfSorts.winHeight;
 import com.game.main.GameOfSorts;
 import dataStructures.AVLTree;
+import dataStructures.BSTNode;
 import dataStructures.BinarySearchTree;
 
 import java.awt.geom.Point2D;
@@ -175,18 +176,21 @@ public class GameScreen implements Screen{
     private void createHorde(){
         dragonPositions = setInitialPositions(dragonPositions);
             
-            for(int i=0; i<9;i++){
-                Captain draco2 = new Captain(i);
-                dragons.add(draco2);
-                binaryTreeDragons.insertNode(draco2);
-                avlTreeDragons.insertNode(draco2);
-            }
-            
-            Commander draco = new Commander(9);
-            dragons.add(draco);
-            binaryTreeDragons.insertNode(draco);
-            avlTreeDragons.insertNode(draco);
+        Dragon draco = new Commander(9);
+        draco.setName(draco.randomName());
+        dragons.add(draco);
+        binaryTreeDragons.insertNode(draco);
+        avlTreeDragons.insertNode(draco);
+        
+        for(int i=0; i<9;i++){
+            Captain draco2 = new Captain(i);
+            draco2.setName(draco2.randomName());
+            dragons.add(draco2);
+            binaryTreeDragons.insertNode(draco2);
+            avlTreeDragons.insertNode(draco2);
+        }
 
+<<<<<<< HEAD
             for(int i=10; i<20;i++){
 
                 Infantry draco3 = new Infantry(i);
@@ -194,7 +198,30 @@ public class GameScreen implements Screen{
                 binaryTreeDragons.insertNode(draco3);
                 avlTreeDragons.insertNode(draco3);
 
+=======
+        for(int i=10; i<20;i++){
+            Infantry draco3 = new Infantry(i);
+            draco3.setName(draco3.randomName());
+            dragons.add(draco3);
+            binaryTreeDragons.insertNode(draco3);
+            avlTreeDragons.insertNode(draco3);
+        }
+        
+        updateFatherNames(binaryTreeDragons.getRoot());
+    }
+    
+    public void updateFatherNames(BSTNode dragonNode){
+        if(dragonNode != null){
+            Dragon dragon = dragonNode.getData();
+            BSTNode fatherNode = binaryTreeDragons.getFatherNode(dragon.getAge());
+            if(fatherNode != null){
+                String fatherName = fatherNode.getData().getName();
+                dragon.setFather(fatherName);
+>>>>>>> 2168818d9f37feca9da1f39a94a81dbd6d6e7de9
             }
+            updateFatherNames(dragonNode.getLeftChild());
+            updateFatherNames(dragonNode.getRightChild());
+        }
     }
     
     /**
@@ -311,6 +338,7 @@ public class GameScreen implements Screen{
                     binaryTreeDragons.deleteNode(dragon.getAge());
                     avlTreeDragons.deleteNode(dragon.getAge());
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
+                    updateFatherNames(binaryTreeDragons.getRoot());
                     rider.hit();
                     System.out.println("Dragons collision");
                     break;
@@ -323,6 +351,7 @@ public class GameScreen implements Screen{
                         binaryTreeDragons.deleteNode(dragon1.getAge());
                         avlTreeDragons.deleteNode(dragon1.getAge());
                         dragons.deleteNodeInPosition(overlapedSprites[1]);
+                        updateFatherNames(binaryTreeDragons.getRoot());
                         System.out.println("Enemy erradicated");
                         sortCounter++;
                         switch(sortCounter){
@@ -345,6 +374,8 @@ public class GameScreen implements Screen{
                     }
                     break;    
             }
+                    
+
             
             
     }
