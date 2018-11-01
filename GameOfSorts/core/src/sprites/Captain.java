@@ -13,8 +13,10 @@ public class Captain extends Dragon{
      * @param name Unique name assigned to the dragon.
      * @param position The dragon's intial position for layout display.
      */
-    public Captain(String name, int position) {
-        super(name, "captain", position);
+    public Captain(int position) {
+        super("captain", position);
+        String[] randomDrag = {randomName(),randomName(),randomName()};
+        setInfantryInCommand(randomDrag);
     }
     
     /**

@@ -170,21 +170,15 @@ public class GameScreen implements Screen{
         dragonPositions = setInitialPositions(dragonPositions);
             
             for(int i=0; i<9;i++){
-                Captain draco2 = new Captain("BryanJr",i);
-                draco2.setFather("Bryan");
-                draco2.setInfantryInCommand(new String[]{"John","Claire","Pom"});
+                Captain draco2 = new Captain(i);
                 dragons.add(draco2);
             }
             
-            Commander draco = new Commander("MarcusJr",9);
-            draco.setFather("Marcus");
-            draco.setDragonsInCommand(new String[]{"Ald","Bass","Carl"});
+            Commander draco = new Commander(9);
             dragons.add(draco);
             
             for(int i=10; i<20;i++){
-                Infantry draco3 = new Infantry("CharlesJr",i);
-                    draco3.setFather("Charles");
-                    draco3.setCaptain("Harlock");
+                Infantry draco3 = new Infantry(i);
                     dragons.add(draco3);
             }
     }
