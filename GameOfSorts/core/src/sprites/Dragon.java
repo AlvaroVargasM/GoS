@@ -42,7 +42,7 @@ public abstract class Dragon {
             for(int i=0; i<usedAges.length; i++) usedAges[i]=0;
         }
         this.name = randomName();
-        this.father = randomName();
+
         this.position=position;
         this.dragonClass= dragonClass;
         isCommander = (dragonClass.equals("commander")) ? true: false;
