@@ -65,7 +65,8 @@ public class InfoPanel {
         this.name = dragon.getName();
         this.dracoClass = dragon.getDragonClass();
         this.age = ""+dragon.getAge();
-        this.father = dragon.getFather();
+        
+        this.father = (dragon.getFather()) == null ? "Orphan": dragon.getFather();
         this.resistance = ""+dragon.getResistance();
         this.fireVelocity = ""+(dragon.getChargeSpeed()*10);
         this.classAtribute = (dracoClass.equals("infantry")) ? "Captained by" : "Superior of";

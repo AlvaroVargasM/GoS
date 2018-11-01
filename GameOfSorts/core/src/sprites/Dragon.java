@@ -223,10 +223,6 @@ public abstract class Dragon {
         return name; 
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * Returns the dragon's father name.
      * @return Dragon's father name.
