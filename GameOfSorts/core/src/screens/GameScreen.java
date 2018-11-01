@@ -188,17 +188,12 @@ public class GameScreen implements Screen{
             avlTreeDragons.insertNode(draco);
 
             for(int i=10; i<20;i++){
-<<<<<<< HEAD
+
                 Infantry draco3 = new Infantry(i);
-                    dragons.add(draco3);
-=======
-                Infantry draco3 = new Infantry("CharlesJr",i);
-                draco3.setFather("Charles");
-                draco3.setCaptain("Harlock");
                 dragons.add(draco3);
                 binaryTreeDragons.insertNode(draco3);
                 avlTreeDragons.insertNode(draco3);
->>>>>>> 79a3655dd70aec6ad2bdab6722512ad7e7511857
+
             }
     }
     
