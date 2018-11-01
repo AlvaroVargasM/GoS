@@ -13,8 +13,9 @@ public class Infantry extends Dragon{
      * @param name Unique name assigned to the dragon.
      * @param position The dragon's intial position for layout display.
      */
-    public Infantry(String name, int position) {
-        super(name,"infantry",position);
+    public Infantry(int position) {
+        super("infantry",position);
+        setCaptain(randomName());
     }
     
     /**
