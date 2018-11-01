@@ -1,10 +1,12 @@
 package dataStructures;
 
+import sprites.Dragon;
+
 public class AVLNode extends BSTNode{
     private int height;
     private int balanceFactor;
     
-    public AVLNode(int data){
+    public AVLNode(Dragon data){
         super(data);
         this.height = 0;
         this.balanceFactor = 0;
@@ -27,7 +29,7 @@ public class AVLNode extends BSTNode{
     }
     
     public String toString(){
-        String str = Integer.toString(data);
+        String str = Integer.toString(data.getAge());
         return str;
     }
     

@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class DataBaseClass {
     
+    // Creates a semidatabase with the dragon model.
     private static Map <Long, Dragon> dragons = new HashMap<>();
     
     public static Map <Long, Dragon> getDragons(){
