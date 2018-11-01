@@ -9,14 +9,14 @@ import javax.ws.rs.core.Response;
  *
  * @author valva
  */
+
 public class RESTClient {
     
     public static void main (String[] args){
         Client client = ClientBuilder.newClient();
       
-        Response response = client.target("http://localhost:8080/ServerGoS/webapi/dragons").request().get();
+        Response response = client.target("http://localhost:8080/ServerGoS/webapi/dragons/1").request().get();
         Dragon dragon = response.readEntity(Dragon.class);
-        System.out.println(dragon.getFather());
-        
+        System.out.println(dragon.getFather());        
     }
 }

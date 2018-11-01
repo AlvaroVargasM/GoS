@@ -10,14 +10,16 @@ import java.util.Map;
  * This class manages the dragon model from the semi database
  * @author valva
  */
+
 public class DragonService {
     
     private Map <Long, Dragon> dragons = DataBaseClass.getDragons();
     
     public DragonService(){
-        dragons.put(1L, new Dragon(1, "Smaug", "valva"));
+        dragons.put(1L, new Dragon(1, "Smaug", "Valva", "Captain", 1, 2, 100));
     }
     
+    // Methods for using the dragon in the semi database
     public List<Dragon> getAllDragons(){
         return new ArrayList <Dragon> (dragons.values());
     }
