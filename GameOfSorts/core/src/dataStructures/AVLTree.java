@@ -10,14 +10,14 @@ public class AVLTree extends BinarySearchTree{
     
     public void insertNode(Dragon data){
         BSTNode newNode = new AVLNode(data);
-        super.insertNode(newNode);
+        insertNode(newNode);
         setTreeHeight();
         setBalanceFactor();
         balanceTree(root, data.getAge());
     }
     
     public void deleteNode(int data){
-        super.deleteNode(data);
+        deleteNode(data);
         setTreeHeight();
         setBalanceFactor();
         balanceTree(root, data);

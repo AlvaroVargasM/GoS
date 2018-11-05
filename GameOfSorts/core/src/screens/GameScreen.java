@@ -1,4 +1,4 @@
-
+ 
 package screens;
 
 import com.badlogic.gdx.Gdx;
@@ -67,7 +67,7 @@ public class GameScreen implements Screen{
         enemyShoots = new LinkedList<EnemyShoot>();
         dragons = new LinkedList<Dragon>();
         binaryTreeDragons = new BinarySearchTree();
-        avlTreeDragons = new AVLTree();
+        //avlTreeDragons = new AVLTree();
         overlapedSprites = new int[3];
 
         dragonPositions = setInitialPositions(dragonPositions);
@@ -180,19 +180,19 @@ public class GameScreen implements Screen{
             Captain draco2 = new Captain(i);
             dragons.add(draco2);
             binaryTreeDragons.insertNode(draco2);
-            avlTreeDragons.insertNode(draco2);
+            //avlTreeDragons.insertNode(draco2);
         }
         
         Dragon draco = new Commander(9);
         dragons.add(draco);
         binaryTreeDragons.insertNode(draco);
-        avlTreeDragons.insertNode(draco);
+        //avlTreeDragons.insertNode(draco);
 
         for(int i=10; i<20;i++){
             Infantry draco3 = new Infantry(i);
             dragons.add(draco3);
             binaryTreeDragons.insertNode(draco3);
-            avlTreeDragons.insertNode(draco3);
+            //avlTreeDragons.insertNode(draco3);
         }
         
         updateFatherNames(binaryTreeDragons.getRoot());
@@ -323,7 +323,7 @@ public class GameScreen implements Screen{
                 case 3:
                     Dragon dragon = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
                     binaryTreeDragons.deleteNode(dragon.getAge());
-                    avlTreeDragons.deleteNode(dragon.getAge());
+                    //avlTreeDragons.deleteNode(dragon.getAge());
                     dragons.deleteNodeInPosition(overlapedSprites[1]);
                     updateFatherNames(binaryTreeDragons.getRoot());
                     rider.hit();
@@ -336,7 +336,7 @@ public class GameScreen implements Screen{
                     if(overlapedSprites[3]==1){
                         Dragon dragon1 = (Dragon) dragons.getNodeInPosition(overlapedSprites[1]).getData();
                         binaryTreeDragons.deleteNode(dragon1.getAge());
-                        avlTreeDragons.deleteNode(dragon1.getAge());
+                        //avlTreeDragons.deleteNode(dragon1.getAge());
                         dragons.deleteNodeInPosition(overlapedSprites[1]);
                         updateFatherNames(binaryTreeDragons.getRoot());
                         System.out.println("Enemy erradicated");

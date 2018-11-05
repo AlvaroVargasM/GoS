@@ -13,4 +13,8 @@ public class DesktopLauncher {
                 config.resizable = false;
 		new LwjglApplication(new GameOfSorts(), config);
 	}
+        
+        public int suma(int n1, int n2){
+            return n1+n2;
+        }
 }

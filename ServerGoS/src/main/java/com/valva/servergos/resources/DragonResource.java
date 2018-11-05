@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
  * interact with its service.
  * @author valva
  */
+
 @Path ("/dragons")
 @Consumes(MediaType.APPLICATION_XML)
 @Produces(MediaType.APPLICATION_XML)
@@ -25,6 +26,7 @@ public class DragonResource {
     
     DragonService dragonService = new DragonService();
     
+    // REST methods
     @GET
     public List<Dragon> getDragons(){
         System.out.println("All dragons were consulted");
