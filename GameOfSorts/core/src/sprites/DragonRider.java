@@ -41,6 +41,8 @@ public class DragonRider {
         hearts[0] = new Animation(0.15f,(Object[]) heartSprite[0]);
     }
     
+    public int sumar(int n1, int n2){ return n1+n2; }
+    
     /**
      *
      * @param deltaTime
