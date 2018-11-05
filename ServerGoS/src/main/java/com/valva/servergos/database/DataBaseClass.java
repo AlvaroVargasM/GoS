@@ -8,6 +8,7 @@ import java.util.Map;
  *
  * @author valva
  */
+
 public class DataBaseClass {
     
     // Creates a semidatabase with the dragon model.
