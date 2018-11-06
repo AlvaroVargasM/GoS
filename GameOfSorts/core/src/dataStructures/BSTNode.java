@@ -36,7 +36,7 @@ public class BSTNode {
     }
     
     public String toString(){
-        String str = data.getName();
+        String str = Integer.toString(data.getAge());
         return str;
     }
 }

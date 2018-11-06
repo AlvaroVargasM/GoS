@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sprites.Commander;
+import sprites.Dragon;
 
 /**
  *
@@ -56,12 +58,13 @@ public class LinkedListTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-
-        Object data = null;
+        Object data = "data";
         LinkedList instance = new LinkedList();
         instance.add(data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LinkedListNode lastNode = instance.getFirstNode();
+        while(lastNode.getNextNode() != null)
+            lastNode = lastNode.getNextNode();
+        assertEquals(data, lastNode.getData());
     }
 
     /**
@@ -70,11 +73,12 @@ public class LinkedListTest {
     @Test
     public void testDeleteNodeInPosition() {
         System.out.println("deleteNodeInPosition");
-        int position = 0;
         LinkedList instance = new LinkedList();
-        instance.deleteNodeInPosition(position);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(Integer i = 0; i < 5; i++)
+            instance.add(i);
+        Object data = 3;
+        instance.deleteNodeInPosition(3);
+        assertNull(instance.getNode(data));
     }
 
     /**
@@ -83,11 +87,12 @@ public class LinkedListTest {
     @Test
     public void testDeleteNode() {
         System.out.println("deleteNode");
-        Object data = null;
         LinkedList instance = new LinkedList();
+        for(Integer i = 0; i < 5; i++)
+            instance.add(i);
+        Object data = 3;
         instance.deleteNode(data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull(instance.getNode(data));
     }
 
     /**
@@ -96,13 +101,10 @@ public class LinkedListTest {
     @Test
     public void testGetNodeInPosition() {
         System.out.println("getNodeInPosition");
-        int position = 0;
         LinkedList instance = new LinkedList();
-        LinkedListNode expResult = null;
-        LinkedListNode result = instance.getNodeInPosition(position);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(Integer i = 0; i < 5; i++)
+            instance.add(i);
+        assertEquals(3, instance.getNodeInPosition(3).getData());
     }
 
     /**
@@ -111,13 +113,10 @@ public class LinkedListTest {
     @Test
     public void testGetNode() {
         System.out.println("getNode");
-        Object data = null;
         LinkedList instance = new LinkedList();
-        LinkedListNode expResult = null;
-        LinkedListNode result = instance.getNode(data);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(Integer i = 0; i < 5; i++)
+            instance.add(i);
+        assertEquals(3, instance.getNode(3).getData());
     }
 
     /**
@@ -127,9 +126,10 @@ public class LinkedListTest {
     public void testDeleteLastNode() {
         System.out.println("deleteLastNode");
         LinkedList instance = new LinkedList();
+        for(Integer i = 0; i < 5; i++)
+            instance.add(i);
         instance.deleteLastNode();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull(instance.getNode(4));
     }
 
     /**
@@ -139,23 +139,31 @@ public class LinkedListTest {
     public void testSelectionSort() {
         System.out.println("selectionSort");
         LinkedList instance = new LinkedList();
-        instance.selectionSort();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(int i = 4; i >= 0; i--){
+            Dragon dragon = new Commander(i);
+            dragon.setAge(i);
+            instance.add(dragon);
+        }
+        instance.selectionSort(true);
+        boolean test = isAgeAscending(instance);
+        assertTrue(test);
     }
-
-    /**
-     * Test of swapData method, of class LinkedList.
-     */
-    @Test
-    public void testSwapData() {
-        System.out.println("swapData");
-        LinkedListNode node1 = null;
-        LinkedListNode node2 = null;
-        LinkedList instance = new LinkedList();
-        instance.swapData(node1, node2);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    
+    public boolean isAgeAscending(LinkedList instance){ 
+        for(LinkedListNode node = instance.getFirstNode(); node.getNextNode() != null;
+            node = node.getNextNode()){
+            if(((Dragon)node.getData()).getAge() > ((Dragon)node.getNextNode().getData()).getAge()) 
+                return false;
+        }return true;
+    }
+    
+    public boolean isChargeSpeedAscending(LinkedList instance){ 
+        for(LinkedListNode node = instance.getFirstNode(); node.getNextNode() != null;
+            node = node.getNextNode()){
+            if(((Dragon)node.getData()).getChargeSpeed() > 
+                ((Dragon)node.getNextNode().getData()).getChargeSpeed()) 
+                return false;
+        }return true;
     }
 
     /**
@@ -165,9 +173,14 @@ public class LinkedListTest {
     public void testInsertionSort() {
         System.out.println("insertionSort");
         LinkedList instance = new LinkedList();
-        instance.insertionSort();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(int i = 4; i >= 0; i--){
+            Dragon dragon = new Commander(i);
+            dragon.setChargeSpeed(i);
+            instance.add(dragon);
+        }
+        instance.insertionSort(true);
+        boolean test = isChargeSpeedAscending(instance);
+        assertTrue(test);
     }
 
     /**
@@ -177,36 +190,14 @@ public class LinkedListTest {
     public void testQuickSort() {
         System.out.println("quickSort");
         LinkedList instance = new LinkedList();
-        instance.quickSort();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getFirstNode method, of class LinkedList.
-     */
-    @Test
-    public void testGetFirstNode() {
-        System.out.println("getFirstNode");
-        LinkedList instance = new LinkedList();
-        LinkedListNode expResult = null;
-        LinkedListNode result = instance.getFirstNode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setFirstNode method, of class LinkedList.
-     */
-    @Test
-    public void testSetFirstNode() {
-        System.out.println("setFirstNode");
-        LinkedListNode firstNode = null;
-        LinkedList instance = new LinkedList();
-        instance.setFirstNode(firstNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(int i = 4; i >= 0; i--){
+            Dragon dragon = new Commander(i);
+            dragon.setAge(i);
+            instance.add(dragon);
+        }
+        instance.quickSort(0, instance.getSize()-1, true);
+        boolean test = isAgeAscending(instance);
+        assertTrue(test);
     }
 
     /**
@@ -216,52 +207,8 @@ public class LinkedListTest {
     public void testIsEmpty() {
         System.out.println("isEmpty");
         LinkedList instance = new LinkedList();
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.isEmpty());
+        instance.add(0);
+        assertFalse(instance.isEmpty());
     }
-
-    /**
-     * Test of getSize method, of class LinkedList.
-     */
-    @Test
-    public void testGetSize() {
-        System.out.println("getSize");
-        LinkedList instance = new LinkedList();
-        int expResult = 0;
-        int result = instance.getSize();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setSize method, of class LinkedList.
-     */
-    @Test
-    public void testSetSize() {
-        System.out.println("setSize");
-        int size = 0;
-        LinkedList instance = new LinkedList();
-        instance.setSize(size);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class LinkedList.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        LinkedList instance = new LinkedList();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

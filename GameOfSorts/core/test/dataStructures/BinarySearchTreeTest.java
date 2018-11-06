@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sprites.Commander;
 import sprites.Dragon;
 
 /**
@@ -44,11 +45,10 @@ public class BinarySearchTreeTest {
     @Test
     public void testInsertNode_Dragon() {
         System.out.println("insertNode");
-        Dragon dragon = null;
+        Dragon dragon = new Commander(0);
         BinarySearchTree instance = new BinarySearchTree();
         instance.insertNode(dragon);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(instance.searchNode(dragon.getAge()));
     }
 
     /**
@@ -57,11 +57,11 @@ public class BinarySearchTreeTest {
     @Test
     public void testInsertNode_BSTNode() {
         System.out.println("insertNode");
-        BSTNode newNode = null;
+        Dragon dragon = new Commander(0);
+        BSTNode newNode = new BSTNode(dragon);
         BinarySearchTree instance = new BinarySearchTree();
         instance.insertNode(newNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(instance.searchNode(dragon.getAge()));
     }
 
     /**
@@ -70,13 +70,12 @@ public class BinarySearchTreeTest {
     @Test
     public void testSearchNode() {
         System.out.println("searchNode");
-        int data = 0;
+        Dragon dragon = new Commander(0);
+        dragon.setAge(5);
         BinarySearchTree instance = new BinarySearchTree();
-        BSTNode expResult = null;
-        BSTNode result = instance.searchNode(data);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        assertEquals(instance.searchNode(5).getData(), dragon);
+        assertNull(instance.searchNode(0));
     }
 
     /**
@@ -85,13 +84,14 @@ public class BinarySearchTreeTest {
     @Test
     public void testGetFatherNode() {
         System.out.println("getFatherNode");
-        int data = 0;
+        Dragon dragon = new Commander(0);
+        dragon.setAge(5);
+        Dragon dragon2 = new Commander(0);
+        dragon2.setAge(6);
         BinarySearchTree instance = new BinarySearchTree();
-        BSTNode expResult = null;
-        BSTNode result = instance.getFatherNode(data);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        instance.insertNode(dragon2);
+        assertEquals(instance.getFatherNode(6).getData(), dragon);
     }
 
     /**
@@ -100,11 +100,11 @@ public class BinarySearchTreeTest {
     @Test
     public void testDeleteNode() {
         System.out.println("deleteNode");
-        int data = 0;
+        Dragon dragon = new Commander(0);
+        dragon.setAge(5);
         BinarySearchTree instance = new BinarySearchTree();
-        instance.deleteNode(data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.deleteNode(5);
+        assertNull(instance.searchNode(5));
     }
 
     /**
@@ -113,13 +113,14 @@ public class BinarySearchTreeTest {
     @Test
     public void testFindMaxNode() {
         System.out.println("findMaxNode");
-        BSTNode node = null;
+        Dragon dragon = new Commander(0);
+        dragon.setAge(5);
+        Dragon dragon2 = new Commander(0);
+        dragon2.setAge(6);
         BinarySearchTree instance = new BinarySearchTree();
-        BSTNode expResult = null;
-        BSTNode result = instance.findMaxNode(node);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        instance.insertNode(dragon2);
+        assertEquals(instance.findMaxNode(instance.root).getData().getAge(), 6);
     }
 
     /**
@@ -128,12 +129,11 @@ public class BinarySearchTreeTest {
     @Test
     public void testGetRoot() {
         System.out.println("getRoot");
+        Dragon dragon = new Commander(0);
+        dragon.setAge(5);
         BinarySearchTree instance = new BinarySearchTree();
-        BSTNode expResult = null;
-        BSTNode result = instance.getRoot();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        assertEquals(instance.getRoot().getData().getAge(), 5);
     }
 
     /**
@@ -142,11 +142,10 @@ public class BinarySearchTreeTest {
     @Test
     public void testSetRoot() {
         System.out.println("setRoot");
-        BSTNode root = null;
+        Dragon dragon = new Commander(0);
         BinarySearchTree instance = new BinarySearchTree();
-        instance.setRoot(root);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        assertNotNull(instance.getRoot().getData().getAge());
     }
 
     /**
@@ -155,25 +154,10 @@ public class BinarySearchTreeTest {
     @Test
     public void testGetSize() {
         System.out.println("getSize");
+        Dragon dragon = new Commander(0);
         BinarySearchTree instance = new BinarySearchTree();
-        int expResult = 0;
-        int result = instance.getSize();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setSize method, of class BinarySearchTree.
-     */
-    @Test
-    public void testSetSize() {
-        System.out.println("setSize");
-        int size = 0;
-        BinarySearchTree instance = new BinarySearchTree();
-        instance.setSize(size);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        assertEquals(instance.getSize(), 1);
     }
 
     /**
@@ -183,24 +167,8 @@ public class BinarySearchTreeTest {
     public void testIsEmpty() {
         System.out.println("isEmpty");
         BinarySearchTree instance = new BinarySearchTree();
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of infixPrint method, of class BinarySearchTree.
-     */
-    @Test
-    public void testInfixPrint() {
-        System.out.println("infixPrint");
-        BSTNode node = null;
-        BinarySearchTree instance = new BinarySearchTree();
-        instance.infixPrint(node);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+        assertTrue(instance.isEmpty());
+        instance.insertNode(new Commander(0));
+        assertFalse(instance.isEmpty());
+    }    
 }

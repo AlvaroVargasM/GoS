@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sprites.Commander;
 import sprites.Dragon;
 
 /**
@@ -44,12 +45,10 @@ public class BSTNodeTest {
     @Test
     public void testGetLeftChild() {
         System.out.println("getLeftChild");
-        BSTNode instance = null;
-        BSTNode expResult = null;
-        BSTNode result = instance.getLeftChild();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BSTNode instance = new BSTNode(new Commander(0));
+        Dragon dragon = new Commander(1);
+        instance.setLeftChild(new BSTNode(dragon));
+        assertEquals(instance.getLeftChild().getData(), dragon);
     }
 
     /**
@@ -58,11 +57,9 @@ public class BSTNodeTest {
     @Test
     public void testSetLeftChild() {
         System.out.println("setLeftChild");
-        BSTNode leftChild = null;
-        BSTNode instance = null;
-        instance.setLeftChild(leftChild);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BSTNode instance = new BSTNode(new Commander(0));
+        instance.setLeftChild(new BSTNode(new Commander(1)));
+        assertNotNull(instance.getLeftChild());
     }
 
     /**
@@ -71,12 +68,10 @@ public class BSTNodeTest {
     @Test
     public void testGetRightChild() {
         System.out.println("getRightChild");
-        BSTNode instance = null;
-        BSTNode expResult = null;
-        BSTNode result = instance.getRightChild();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BSTNode instance = new BSTNode(new Commander(0));
+        Dragon dragon = new Commander(1);
+        instance.setRightChild(new BSTNode(dragon));
+        assertEquals(instance.getRightChild().getData(), dragon);
     }
 
     /**
@@ -85,11 +80,9 @@ public class BSTNodeTest {
     @Test
     public void testSetRightChild() {
         System.out.println("setRightChild");
-        BSTNode rightChild = null;
-        BSTNode instance = null;
-        instance.setRightChild(rightChild);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BSTNode instance = new BSTNode(new Commander(0));
+        instance.setRightChild(new BSTNode(new Commander(1)));
+        assertNotNull(instance.getRightChild());
     }
 
     /**
@@ -98,12 +91,10 @@ public class BSTNodeTest {
     @Test
     public void testGetData() {
         System.out.println("getData");
-        BSTNode instance = null;
-        Dragon expResult = null;
-        Dragon result = instance.getData();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Dragon dragon = new Commander(0);
+        BSTNode instance = new BSTNode(dragon);
+        assertEquals(instance.getData(), dragon);
+        
     }
 
     /**
@@ -112,25 +103,9 @@ public class BSTNodeTest {
     @Test
     public void testSetData() {
         System.out.println("setData");
-        Dragon data = null;
-        BSTNode instance = null;
-        instance.setData(data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Dragon dragon = new Commander(0); dragon.setAge(500);
+        BSTNode instance = new BSTNode(new Commander(1));
+        instance.setData(dragon);
+        assertEquals(instance.getData().getAge(), dragon.getAge());
     }
-
-    /**
-     * Test of toString method, of class BSTNode.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        BSTNode instance = null;
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
