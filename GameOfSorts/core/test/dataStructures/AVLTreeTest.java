@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sprites.Commander;
 import sprites.Dragon;
 
 /**
@@ -44,11 +45,10 @@ public class AVLTreeTest {
     @Test
     public void testInsertNode() {
         System.out.println("insertNode");
-        Dragon data = null;
+        Dragon dragon = new Commander(0);
         AVLTree instance = new AVLTree();
-        instance.insertNode(data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.insertNode(dragon);
+        assertNotNull(instance.searchNode(dragon.getAge()));
     }
 
     /**
@@ -57,38 +57,11 @@ public class AVLTreeTest {
     @Test
     public void testDeleteNode() {
         System.out.println("deleteNode");
-        int data = 0;
+        Dragon dragon = new Commander(0);
+        dragon.setAge(5);
         AVLTree instance = new AVLTree();
-        instance.deleteNode(data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of balanceTree method, of class AVLTree.
-     */
-    @Test
-    public void testBalanceTree() {
-        System.out.println("balanceTree");
-        BSTNode node = null;
-        int data = 0;
-        AVLTree instance = new AVLTree();
-        instance.balanceTree(node, data);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of defineRotationType method, of class AVLTree.
-     */
-    @Test
-    public void testDefineRotationType() {
-        System.out.println("defineRotationType");
-        BSTNode node = null;
-        AVLTree instance = new AVLTree();
-        instance.defineRotationType(node);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.deleteNode(5);
+        assertNull(instance.searchNode(5));
     }
 
     /**
@@ -97,11 +70,15 @@ public class AVLTreeTest {
     @Test
     public void testLeftRotation() {
         System.out.println("leftRotation");
-        BSTNode unbalancedNode = null;
         AVLTree instance = new AVLTree();
-        instance.leftRotation(unbalancedNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(int i = 0; i < 3; i++){
+            Dragon dragon = new Commander(i);
+            dragon.setAge(i);
+            instance.insertNode(dragon);
+        }
+        assertEquals(instance.getRoot().getData().getAge(), 1);
+        assertEquals(instance.getRoot().getLeftChild().getData().getAge(), 0);
+        assertEquals(instance.getRoot().getRightChild().getData().getAge(), 2);
     }
 
     /**
@@ -110,11 +87,15 @@ public class AVLTreeTest {
     @Test
     public void testRightRotation() {
         System.out.println("rightRotation");
-        BSTNode unbalancedNode = null;
         AVLTree instance = new AVLTree();
-        instance.rightRotation(unbalancedNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for(int i = 2; i >= 0; i--){
+            Dragon dragon = new Commander(i);
+            dragon.setAge(i);
+            instance.insertNode(dragon);
+        }
+        assertEquals(instance.getRoot().getData().getAge(), 1);
+        assertEquals(instance.getRoot().getLeftChild().getData().getAge(), 0);
+        assertEquals(instance.getRoot().getRightChild().getData().getAge(), 2);
     }
 
     /**
@@ -123,11 +104,19 @@ public class AVLTreeTest {
     @Test
     public void testLeftRightDoubleRotation() {
         System.out.println("leftRightDoubleRotation");
-        BSTNode unbalancedNode = null;
         AVLTree instance = new AVLTree();
-        instance.leftRightDoubleRotation(unbalancedNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Dragon dragon1 = new Commander(0);
+        dragon1.setAge(5);
+        Dragon dragon2 = new Commander(0);
+        dragon2.setAge(3);
+        Dragon dragon3 = new Commander(0);
+        dragon3.setAge(4);
+        instance.insertNode(dragon1);
+        instance.insertNode(dragon2);
+        instance.insertNode(dragon3);
+        assertEquals(instance.getRoot().getData().getAge(), 4);
+        assertEquals(instance.getRoot().getLeftChild().getData().getAge(), 3);
+        assertEquals(instance.getRoot().getRightChild().getData().getAge(), 5);
     }
 
     /**
@@ -136,50 +125,18 @@ public class AVLTreeTest {
     @Test
     public void testRightLeftDoubleRotation() {
         System.out.println("rightLeftDoubleRotation");
-        BSTNode unbalancedNode = null;
         AVLTree instance = new AVLTree();
-        instance.rightLeftDoubleRotation(unbalancedNode);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Dragon dragon1 = new Commander(0);
+        dragon1.setAge(3);
+        Dragon dragon2 = new Commander(0);
+        dragon2.setAge(5);
+        Dragon dragon3 = new Commander(0);
+        dragon3.setAge(4);
+        instance.insertNode(dragon1);
+        instance.insertNode(dragon2);
+        instance.insertNode(dragon3);
+        assertEquals(instance.getRoot().getData().getAge(), 4);
+        assertEquals(instance.getRoot().getLeftChild().getData().getAge(), 3);
+        assertEquals(instance.getRoot().getRightChild().getData().getAge(), 5);
     }
-
-    /**
-     * Test of getMaxDepth method, of class AVLTree.
-     */
-    @Test
-    public void testGetMaxDepth() {
-        System.out.println("getMaxDepth");
-        BSTNode node = null;
-        AVLTree instance = new AVLTree();
-        int expResult = 0;
-        int result = instance.getMaxDepth(node);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setTreeHeight method, of class AVLTree.
-     */
-    @Test
-    public void testSetTreeHeight() {
-        System.out.println("setTreeHeight");
-        AVLTree instance = new AVLTree();
-        instance.setTreeHeight();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setBalanceFactor method, of class AVLTree.
-     */
-    @Test
-    public void testSetBalanceFactor() {
-        System.out.println("setBalanceFactor");
-        AVLTree instance = new AVLTree();
-        instance.setBalanceFactor();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

@@ -17,7 +17,7 @@ public class AVLTree extends BinarySearchTree{
     }
     
     public void deleteNode(int data){
-        deleteNode(data);
+        super.deleteNode(data);
         setTreeHeight();
         setBalanceFactor();
         balanceTree(root, data);

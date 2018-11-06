@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import sprites.Commander;
 
 /**
  *
@@ -43,12 +44,8 @@ public class AVLNodeTest {
     @Test
     public void testGetHeight() {
         System.out.println("getHeight");
-        AVLNode instance = null;
-        int expResult = 0;
-        int result = instance.getHeight();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        AVLNode instance = new AVLNode(new Commander(0));
+        assertEquals(instance.getHeight(), 0);
     }
 
     /**
@@ -57,11 +54,9 @@ public class AVLNodeTest {
     @Test
     public void testSetHeight() {
         System.out.println("setHeight");
-        int height = 0;
-        AVLNode instance = null;
-        instance.setHeight(height);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        AVLNode instance = new AVLNode(new Commander(0));
+        instance.setHeight(5);
+        assertEquals(instance.getHeight(), 5);
     }
 
     /**
@@ -70,12 +65,8 @@ public class AVLNodeTest {
     @Test
     public void testGetBalanceFactor() {
         System.out.println("getBalanceFactor");
-        AVLNode instance = null;
-        int expResult = 0;
-        int result = instance.getBalanceFactor();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        AVLNode instance = new AVLNode(new Commander(0));
+        assertEquals(instance.getBalanceFactor(), 0);
     }
 
     /**
@@ -84,25 +75,8 @@ public class AVLNodeTest {
     @Test
     public void testSetBalanceFactor() {
         System.out.println("setBalanceFactor");
-        int balanceFactor = 0;
-        AVLNode instance = null;
-        instance.setBalanceFactor(balanceFactor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class AVLNode.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        AVLNode instance = null;
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+        AVLNode instance = new AVLNode(new Commander(0));
+        instance.setBalanceFactor(5);
+        assertEquals(instance.getBalanceFactor(), 5);
+    }    
 }
