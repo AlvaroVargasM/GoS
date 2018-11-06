@@ -35,13 +35,13 @@ public class DragonRider {
         knightPose = 2;
         knightAnimations = new Animation[5];
         hearts = new Animation[1];
-        TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), 96, 96);
-        for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, (Object[])  knightSpriteSheet[i]);
-        TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heartX.png"), 640, 640);
-        hearts[0] = new Animation(0.15f,(Object[]) heartSprite[0]);
+        try{
+            TextureRegion[][] knightSpriteSheet = TextureRegion.split(new Texture("riderZ.png"), 96, 96);
+            for(int i=0;i<4;i++)knightAnimations[i] = new Animation(0.15f, (Object[])  knightSpriteSheet[i]);
+            TextureRegion[][] heartSprite = TextureRegion.split(new Texture("heartX.png"), 640, 640);
+            hearts[0] = new Animation(0.15f,(Object[]) heartSprite[0]);
+        }catch(Exception e){}
     }
-    
-    public int sumar(int n1, int n2){ return n1+n2; }
     
     /**
      *

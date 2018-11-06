@@ -35,8 +35,10 @@ public class RiderShoot {
         this.rotation = (orientation.equals("left")) ? 180: (orientation.equals("up")) ? 90: (orientation.equals("down")) ? -90 : 0;
         this.offSets[0] = 30;
         this.offSets[1] = 15;
-        TextureRegion[][] blueFireSpriteSheet = TextureRegion.split(new Texture("blueFire.png"), 132, 98);
-        animation = new Animation(0.10f, (Object[]) blueFireSpriteSheet[0]); 
+        try{
+            TextureRegion[][] blueFireSpriteSheet = TextureRegion.split(new Texture("blueFire.png"), 132, 98);
+            animation = new Animation(0.10f, (Object[]) blueFireSpriteSheet[0]); 
+        }catch(Exception e){}
     }
     
     /**
