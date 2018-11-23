@@ -24,7 +24,10 @@ public class InfoPanel {
      * InfoPanel class constructor.
      */
     public InfoPanel(){
-        panel = new Texture("info.png");
+        try{
+            panel = new Texture("info.png");
+        }catch(Exception e){}
+        
         x=1270;
         blackFont = new BitmapFont(Gdx.files.internal("fontS.fnt"));
         whiteFont = new BitmapFont(Gdx.files.internal("fontL.fnt"));

@@ -8,10 +8,10 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Generic dragon class. Contains all the general methods and atributes used by all the dragons implemented classes.
+ * Generic dragon class. Contains all the general methods and attributes used by all the dragons implemented classes.
  * @author Luis Mariano Ramírez Segura
  */
-public abstract class Dragon {
+public class Dragon {
     
     private int position;
     private float x,y;
@@ -69,12 +69,14 @@ public abstract class Dragon {
         this.resistance = (isCommander) ? 3: (dragonClass.equals("captain")) ? 2: 1;  
         this.life=resistance;
         this.size = (isCommander) ? 128: 96;
-        TextureRegion[][] dragonSpriteSheet = TextureRegion.split(new Texture(dragonSprite), this.size, this.size);
-        this.animation = new Animation(0.15f, (Object[]) dragonSpriteSheet[1]);
+        try{
+            TextureRegion[][] dragonSpriteSheet = TextureRegion.split(new Texture(dragonSprite), this.size, this.size);
+            this.animation = new Animation(0.15f, (Object[]) dragonSpriteSheet[1]);
+        }catch(Exception e){}
     }
     
     /**
-     * Returns a five digit randome name.
+     * Returns a five digit random name.
      */
     public String randomName(){
          String[] vowels = {"a","e","i","o","u"};
@@ -182,6 +184,14 @@ public abstract class Dragon {
     public float getX(){
         return x;
     }
+    
+    public void setX(float x){
+        this.x=x;
+    }
+    
+    public void setY(float y){
+        this.y=y;
+    }
 
     /**
      * Returns the dragon y location.
@@ -198,6 +208,11 @@ public abstract class Dragon {
     public boolean getShooting(){ 
         return shooting;
     }
+    
+    public void setShooting(boolean shooting){
+        this.shooting = shooting;
+    }
+    
 
     /**
      * Indicates if the dragon's class is commander.
@@ -253,5 +268,13 @@ public abstract class Dragon {
      */
     public int getResistance() { 
         return resistance;
+    }
+
+    public void setAge(int i) {
+        age = i;
+    }
+
+    public void setChargeSpeed(int i) {
+        chargeSpeed = i;
     }
 }

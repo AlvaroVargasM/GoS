@@ -119,7 +119,7 @@ public class LinkedList<GenericType>{
         }
     }
     
-    private void selectionSort(boolean ascending){
+    public void selectionSort(boolean ascending){
         for(LinkedListNode node1 = getFirstNode(); node1.getNextNode() != null;
             node1 = node1.getNextNode()){
             for(LinkedListNode node2 = node1.getNextNode(); node2 != null;
@@ -134,7 +134,7 @@ public class LinkedList<GenericType>{
         }updatePositions();
     }
     
-    public void swapData(LinkedListNode node1, LinkedListNode node2){
+    private void swapData(LinkedListNode node1, LinkedListNode node2){
         Dragon dragon = (Dragon) node2.getData();
         node2.setData(node1.getData());
         node1.setData(dragon);   
@@ -148,7 +148,7 @@ public class LinkedList<GenericType>{
         }
     }
     
-    private void insertionSort(boolean ascending){
+    public void insertionSort(boolean ascending){
         int lenght = getSize();
         for(int i = 1; i < lenght; i++){
             Dragon key = (Dragon) getNodeInPosition(i).getData(); 
@@ -176,7 +176,7 @@ public class LinkedList<GenericType>{
         }
     }
             
-    private void quickSort(int low, int high, boolean ascending){ 
+    public void quickSort(int low, int high, boolean ascending){ 
         if (low < high){
             int pi = partition(low, high, ascending);
             
@@ -250,7 +250,7 @@ public class LinkedList<GenericType>{
         for(LinkedListNode node = firstNode; node != null; node = node.getNextNode()){
             str += node.toString() + " -> ";
         }
-        str += "null]";
+        str += "null ]";
         return str;
     }
 }

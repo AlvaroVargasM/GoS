@@ -128,7 +128,6 @@ public final class BTree<E extends Comparable<? super E>>
                     return true;
                 } else
                     return false;
-
             } else {  // Internal node
                 if (index >= 0) {  // Key is stored at current node
                     BNode<E> left  = node.children[index + 0];

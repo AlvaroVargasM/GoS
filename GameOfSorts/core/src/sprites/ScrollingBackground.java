@@ -25,24 +25,27 @@ public class ScrollingBackground {
      * Scrolling background constructor class.
      */
     public ScrollingBackground(){
-        seamlessBackground = new Texture("seamlessBackground.png");
-        castle = new Texture("passingCastle.png");
-        cloud1 = new Texture("cloud1.png");
-        cloud2 = new Texture("cloud2.png");
-        sun = new Texture("sun.png");
-      
-        
         bgX1 = 0;
         bgX1 = width;
         
         castleX=0;
-        
-        for(int i=0; i< clouds1.length; i++){
-            clouds1[i]= new Point2D.Float(random(500,900),random(0,750));
-        }
-        for(int i=0; i< clouds2.length; i++){
-            clouds2[i]= new Point2D.Float(random(100,700),random(0,750));
-        }
+        try{
+            seamlessBackground = new Texture("seamlessBackground.png");
+            castle = new Texture("passingCastle.png");
+            cloud1 = new Texture("cloud1.png");
+            cloud2 = new Texture("cloud2.png");
+            sun = new Texture("sun.png");
+
+
+
+
+            for(int i=0; i< clouds1.length; i++){
+                clouds1[i]= new Point2D.Float(random(500,900),random(0,750));
+            }
+            for(int i=0; i< clouds2.length; i++){
+                clouds2[i]= new Point2D.Float(random(100,700),random(0,750));
+            }
+        }catch(Exception e){}
     }
     
     /**
