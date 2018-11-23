@@ -1,7 +1,7 @@
 package com.valva.servergos.resources;
 
-import com.valva.servergos.model.Dragon;
-import com.valva.servergos.service.DragonService;
+import com.valva.servergos.models.Dragon;
+import com.valva.servergos.services.DragonService;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,50 +14,44 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * This class manages the dragon resource and contains the HTTP methods to 
- * interact with its service.
+ *
  * @author valva
  */
 
-@Path ("/dragons")
-@Consumes(MediaType.APPLICATION_XML)
-@Produces(MediaType.APPLICATION_XML)
+@Path ("/Dragons")
+@Consumes (MediaType.APPLICATION_XML)
+@Produces (MediaType.APPLICATION_XML)
 public class DragonResource {
     
     DragonService dragonService = new DragonService();
     
-    // REST methods
     @GET
     public List<Dragon> getDragons(){
-        System.out.println("All dragons were consulted");
         return dragonService.getAllDragons();
     }
     
     @POST       
     public Dragon addDragon(Dragon dragon){
-        System.out.println("A new dragon was added");
         return dragonService.addDragon(dragon);
     }
     
     @PUT
     @Path("/{dragonId}")
-    public Dragon updateDragon(@PathParam("dragonId") long id, Dragon dragon){
-        System.out.println("The dragon number "+id+" was updated");
+    public Dragon updateDragon(@PathParam("dragonId") int id, Dragon dragon){
         dragon.setId(id);
         return dragonService.updateDragon(dragon);
     }
     
     @DELETE
     @Path("/{dragonId}")    
-     public void deleteDragon(@PathParam("dragonId") long id){
-        System.out.println("The dragon number "+id+" was deleted"); 
+     public void deleteDragon(@PathParam("dragonId") int id){
         dragonService.removeDragon(id);
      }
     
+    
     @GET
     @Path("/{dragonId}")
-    public Dragon getDragon(@PathParam("dragonId") long id){
-        System.out.println("The dragon number "+id+" was consulted");
+    public Dragon getDragon(@PathParam("dragonId") int id){
         return dragonService.getDragon(id);
     }        
 }
